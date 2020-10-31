@@ -4,6 +4,9 @@ export const initialUIState = {
   navDrawerMenu: false,
   postModel: false,
   message: null,
+  notifications: [],
+  loading: false,
+  darkMode: false,
 }
 
 export const UIReducer = (state, action) => {
@@ -35,6 +38,29 @@ export const UIReducer = (state, action) => {
       return {
         ...state,
         postModel: action.payload,
+      }
+
+    case 'SET_NOTIFICATIONS':
+      return {
+        ...state,
+        notifications: action.payload,
+      }
+
+    case 'ADD_NOTIFICATION':
+      return {
+        ...state,
+        notifications: [action.payload, ...state.notifications],
+      }
+
+    case 'SET_LOADING':
+      return {
+        ...state,
+        loading: action.payload,
+      }
+    case 'SET_DARK_MODE':
+      return {
+        ...state,
+        darkMode: action.payload,
       }
 
     default:

@@ -54,8 +54,8 @@ function Post() {
     return (
       <div
         style={{
-          marginTop: '100px',
-          height: '90vh',
+          paddingTop: '100px',
+          minHeight: '100vh',
         }}
       >
         <Container>
@@ -67,11 +67,11 @@ function Post() {
                   height: '80vh',
                   position: 'sticky',
                   top: 100,
+                  backgroundColor:uiState.darkMode && 'rgb(36,37,38)'
                 }}
               >
                 {postState.post.user && (
                   <CardHeader
-
                     avatar={
                       postState.post.user.profile_pic ? (
                         <Avatar>
@@ -81,13 +81,13 @@ function Post() {
                           />
                         </Avatar>
                       ) : (
-                          <AvartarText
-                            text={postState.post.user.name}
-                            bg={
-                              postState.post.user.active ? 'seagreen' : 'tomato'
-                            }
-                          />
-                        )
+                        <AvartarText
+                          text={postState.post.user.name}
+                          bg={
+                            postState.post.user.active ? 'seagreen' : 'tomato'
+                          }
+                        />
+                      )
                     }
                     title={
                       postState.post && (
@@ -137,34 +137,34 @@ function Post() {
                 )}
 
                 {postState.post.profilePostData &&
-                  Object.keys(postState.post.profilePostData).length ? (
-                    <>
-                      <CardMedia
-                        style={{ width: '100%', height: '200px' }}
-                        image={postState.post.profilePostData.coverImage}
-                        title={postState.post.user.name}
-                      />
+                Object.keys(postState.post.profilePostData).length ? (
+                  <>
+                    <CardMedia
+                      style={{ width: '100%', height: '200px' }}
+                      image={postState.post.profilePostData.coverImage}
+                      title={postState.post.user.name}
+                    />
 
-                      <Avatar
-                        style={{
-                          border: '6px solid tomato',
-                          width: xsScreen ? '300px' : '400px',
-                          height: xsScreen ? '300px' : '400px',
-                          display: 'flex',
-                          flexDirection: 'row',
-                          margin: 'auto',
-                          borderRadius: '100%',
-                          bottom: 130,
-                        }}
-                      >
-                        <img
-                          src={postState.post.profilePostData.profileImage}
-                          width="100%"
-                          height="100%"
-                        />
-                      </Avatar>
-                    </>
-                  ) : null}
+                    <Avatar
+                      style={{
+                        border: '6px solid tomato',
+                        width: xsScreen ? '300px' : '400px',
+                        height: xsScreen ? '300px' : '400px',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        margin: 'auto',
+                        borderRadius: '100%',
+                        bottom: 130,
+                      }}
+                    >
+                      <img
+                        src={postState.post.profilePostData.profileImage}
+                        width="100%"
+                        height="100%"
+                      />
+                    </Avatar>
+                  </>
+                ) : null}
               </Card>
             </Grid>
 
@@ -175,7 +175,7 @@ function Post() {
               xs={12}
               style={{ marginBottom: !uiState.mdScreen ? '70px' : '0px' }}
             >
-              <Paper style={{ padding: '16px' }}>
+              <Paper style={{ padding: '16px',backgroundColor:uiState.darkMode && 'rgb(36,37,38)' }}>
                 <CommentTextArea post={postState.post} />
               </Paper>
               {postState.post.comments && postState.post.comments.length ? (

@@ -20,12 +20,18 @@ const useStyles = makeStyles((theme) => ({
 }))
 function Friend({ user, children }) {
   const { userDispatch } = useContext(UserContext)
-  const { uiDispatch } = useContext(UIContext)
+  const { uiState, uiDispatch } = useContext(UIContext)
   const classes = useStyles()
 
   return (
     <Fragment>
-      <Card elevation={0}>
+      <Card
+        elevation={0}
+        style={{
+          width: '100%',
+          backgroundColor: uiState.darkMode ? 'rgb(36,37,38)' :null,
+        }}
+      >
         <CardActionArea
           onClick={() => {
             userDispatch({ type: 'ADD_SELECTED_USER_PROFILE', payload: user })

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { UIContext } from '../../App'
+import { useHistory } from 'react-router-dom'
 import {
   Menu,
   IconButton,
@@ -22,13 +23,15 @@ import {
 } from '@material-ui/icons'
 
 function CreatePostMenu() {
-  const { uiDispatch } = useContext(UIContext)
+  const history = useHistory()
+  const { uiState, uiDispatch } = useContext(UIContext)
 
   const [postMenu, setPostMenu] = useState(null)
   const theme = useTheme()
   const xsScreen = useMediaQuery(theme.breakpoints.only('xs'))
 
   const handlePostOpen = () => {
+    history.push('/')
     uiDispatch({ type: 'SET_POST_MODEL', payload: true })
     setPostMenu(null)
   }
@@ -37,8 +40,8 @@ function CreatePostMenu() {
       <IconButton
         style={{
           marginLeft: '8px',
-          color: 'black',
-          backgroundColor: '#F0F2F5',
+          color: !uiState.darkMode ? 'black' : null,
+          backgroundColor: !uiState.darkMode ? '#F0F2F5' : null,
         }}
         onClick={(e) => setPostMenu(e.currentTarget)}
       >
@@ -54,9 +57,9 @@ function CreatePostMenu() {
         open={Boolean(postMenu)}
         onClose={() => setPostMenu(null)}
         style={{ marginTop: '50px' }}
-        elevation={0}
+        elevation={7}
       >
-        <Paper style={{ width: '360px', overflowX: 'hidden' }} elevation={8}>
+       
           <List
             subheader={
               <ListSubheader>
@@ -70,8 +73,8 @@ function CreatePostMenu() {
               <ListItemIcon>
                 <Avatar
                   style={{
-                    background: 'rgb(228,230,235)',
-                    color: 'rgb(96,104,111)',
+                    background: 'teal',
+                    color: '#fff',
                   }}
                 >
                   <PostIcon />
@@ -79,13 +82,18 @@ function CreatePostMenu() {
               </ListItemIcon>
               <ListItemText>
                 <Typography style={{ fontSize: '15px' }}> Post</Typography>
-                <Typography style={{ fontSize: '13px', color: '#65676B' }}>
+                <Typography
+                  style={{
+                    fontSize: '13px',
+                    color: !uiState.darkMode ? '#65676B' : null,
+                  }}
+                >
                   Share a Post on News Feed
                 </Typography>
               </ListItemText>
             </ListItem>
           </List>
-        </Paper>
+       
       </Menu>
     </div>
   )

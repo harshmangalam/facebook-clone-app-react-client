@@ -8,9 +8,15 @@ import React, {
 } from 'react'
 
 import { ThemeProvider } from '@material-ui/core/styles'
-import { Theme } from './Theme.js'
 
-import { Snackbar, useMediaQuery, useTheme } from '@material-ui/core'
+// import { Theme } from './Theme.js'
+
+import {
+  Snackbar,
+  useMediaQuery,
+  useTheme,
+  createMuiTheme,
+} from '@material-ui/core'
 
 import {
   BrowserRouter as Router,
@@ -48,6 +54,7 @@ const Auth = lazy(() => import('./screens/Auth'))
 const Profile = lazy(() => import('./screens/Profile'))
 const Post = lazy(() => import('./screens/Post'))
 const Messenger = lazy(() => import('./screens/Messenger'))
+const Settings = lazy(() => import('./screens/Settings'))
 const SendedFriendRequests = lazy(() =>
   import('./screens/SendedFriendRequests'),
 )
@@ -62,6 +69,26 @@ function App() {
 
   const theme = useTheme()
   const mdScreen = useMediaQuery(theme.breakpoints.up('md'))
+  const Theme = React.useMemo(
+    () =>
+      createMuiTheme({
+        active: {
+          success: 'rgb(63,162,76)',
+        },
+
+        palette: {
+          type: uiState.darkMode ? 'dark' : 'light',
+          primary: {
+            main: 'rgb(1,133,243)',
+          },
+
+          secondary: {
+            main: 'rgb(63,162,76)',
+          },
+        },
+      }),
+    [uiState.darkMode],
+  )
 
   useEffect(() => {
     uiDispatch({ type: 'SET_USER_SCREEN', payload: mdScreen })
@@ -80,6 +107,11 @@ function App() {
             userDispatch({
               type: 'SET_CURRENT_USER',
               payload: currentUser.data.user,
+            })
+
+            uiDispatch({
+              type: 'SET_NOTIFICATIONS',
+              payload: currentUser.data.notifications,
             })
           }
         }
@@ -128,7 +160,7 @@ function App() {
       })
 
       socketio.on('friend-request-accept-status', ({ user, request_id }) => {
-        console.log(user, request_id)
+        console.log(request_id)
         userDispatch({
           type: 'ADD_FRIEND',
           payload: user,
@@ -140,6 +172,7 @@ function App() {
       })
 
       socketio.on('received-friend-request-decline', ({ requestId }) => {
+        console.log(requestId)
         userDispatch({
           type: 'REMOVE_FRIENDS_REQUEST_SENDED',
           payload: requestId,
@@ -171,6 +204,13 @@ function App() {
       socketio.on('new-message', ({ data }) => {
         chatDispatch({ type: 'ADD_MESSAGE', payload: data })
       })
+
+      // Realtime  Notification releted stuff
+
+      socketio.on('Notification', ({ data }) => {
+        uiDispatch({ type: 'ADD_NOTIFICATION', payload: data })
+      })
+
       return () => {
         socketio.disconnect()
         userDispatch({ type: 'SET_SOCKETIO', payload: null })
@@ -189,7 +229,13 @@ function App() {
                 <Router>
                   {userState.isLoggedIn && <Navbar />}
 
-                  <div>
+                  <div
+                    style={{
+                      backgroundColor: !uiState.darkMode
+                        ? 'rgb(240,242,245)'
+                        : 'rgb(24,25,26)',
+                    }}
+                  >
                     <Suspense fallback={<Loader />}>
                       <Switch>
                         <Route
@@ -237,6 +283,12 @@ function App() {
                           exact
                           path="/friends/sended_friend_request"
                           component={SendedFriendRequests}
+                          isLoggedIn={userState.isLoggedIn}
+                        />
+                        <ProtectedRoute
+                          exact
+                          path="/settings"
+                          component={Settings}
                           isLoggedIn={userState.isLoggedIn}
                         />
                       </Switch>

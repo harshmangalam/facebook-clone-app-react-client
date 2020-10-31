@@ -1,7 +1,7 @@
 import { Dialog, LinearProgress, Paper, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
 
-function DialogLoading({ loading }) {
+function DialogLoading({ loading, text }) {
   const [open, setOpen] = useState(loading)
   return (
     <Dialog
@@ -33,7 +33,7 @@ function DialogLoading({ loading }) {
             marginBottom: '16px',
           }}
         >
-          Uploading Post...
+          {text}
         </Typography>
         <LinearProgress color="secondary" style={{ width: '50%' }} />
       </Paper>

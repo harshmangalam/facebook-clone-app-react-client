@@ -7,7 +7,6 @@ import UserProfile from '../components/Profile/UserProfile'
 function Profile() {
   const params = useParams()
   const { userState,userDispatch } = useContext(UserContext)
-  const [loading, setLoading] = useState(false)
   const [user, setUser] = useState(null)
 
   useEffect(() => {

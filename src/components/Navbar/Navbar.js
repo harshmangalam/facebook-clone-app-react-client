@@ -24,7 +24,15 @@ function Navbar() {
 
   return (
     <Fragment>
-      <AppBar className={classes.root} elevation={1}>
+      <AppBar
+        color="default"
+        style={{
+          backgroundColor: !uiState.darkMode ? 'white' : 'rgb(36,37,38)',
+          color: !uiState.darkMode ? 'blue' : null,
+        }}
+        className={classes.root}
+        elevation={1}
+      >
         <Toolbar>
           <div className={classes.leftMenu}>
             <FontAwesomeIcon
@@ -33,14 +41,18 @@ function Navbar() {
               style={{
                 width: '40px',
                 height: '40px',
-                color: 'rgb(0,133,243)',
+                color: !uiState.darkMode ? 'rgb(0,133,243)' : null,
                 marginRight: '8px',
               }}
             />
             {uiState.mdScreen && !match ? (
               <Search placeholder="Search Facebook" />
             ) : (
-              <IconButton style={{ background: 'rgb(240,242,245)' }}>
+              <IconButton
+                style={{
+                  background: !uiState.darkMode && 'rgb(240,242,245)',
+                }}
+              >
                 <SearchIcon
                   style={{
                     width: xsScreen && '20px',
@@ -51,13 +63,11 @@ function Navbar() {
             )}
             {!uiState.mdScreen && uiState.navDrawerMenu && (
               <Tooltip
-              
                 title={
                   uiState.drawer
                     ? 'click to close drawer '
                     : ' click to open drawer'
                 }
-            
                 arrow
               >
                 <IconButton

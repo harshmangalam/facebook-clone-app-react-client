@@ -32,7 +32,7 @@ import { Close } from '@material-ui/icons'
 
 const CameraField = lazy(() => import('./CameraField'))
 export default function PostFormDialog() {
-const {uiState,uiDispatch} = useContext(UIContext)
+  const { uiState, uiDispatch } = useContext(UIContext)
   const [blob, setBlob] = useState(null)
   const [postImage, setPostImage] = useState(null)
   const [previewImage, setPreviewImage] = useState('')
@@ -81,7 +81,7 @@ const {uiState,uiDispatch} = useContext(UIContext)
   }
 
   function handleCloseDialog() {
-    uiDispatch({type:"SET_POST_MODEL",payload:false})
+    uiDispatch({ type: 'SET_POST_MODEL', payload: false })
   }
 
   function removeFileImage() {
@@ -137,20 +137,20 @@ const {uiState,uiDispatch} = useContext(UIContext)
     <div>
       <Typography
         style={{
-          color: 'grey',
+          color: !uiState.darkMode ? 'grey' : null,
           padding: '8px',
-          background: 'rgb(240,242,245)',
+          background: !uiState.darkMode ? 'rgb(240,242,245)' : null,
           borderRadius: '20px',
 
           cursor: 'pointer',
         }}
-        onClick={() => uiDispatch({type:"SET_POST_MODEL",payload:true})}
+        onClick={() => uiDispatch({ type: 'SET_POST_MODEL', payload: true })}
       >
         What`s in your mind, {userState.currentUser.name} ?
       </Typography>
 
       {loading ? (
-        <DialogLoading loading={loading} />
+        <DialogLoading loading={loading} text="Uploading Post..." />
       ) : (
         <Dialog
           disableBackdropClick
@@ -159,7 +159,7 @@ const {uiState,uiDispatch} = useContext(UIContext)
           scroll="body"
           maxWidth="sm"
           open={uiState.postModel}
-          onClose={() => uiDispatch({type:"SET_POST_MODEL",payload:false})}
+          onClose={() => uiDispatch({ type: 'SET_POST_MODEL', payload: false })}
           style={{ width: '100%' }}
         >
           <DialogHeader
@@ -189,7 +189,7 @@ const {uiState,uiDispatch} = useContext(UIContext)
               value={postData.content}
               onChange={handleContentChange}
               style={{
-                background: '#fff',
+                background: !uiState.darkMode ? '#fff' : null,
                 border: 'none',
                 width: '100%',
               }}

@@ -14,6 +14,7 @@ import {
   Avatar,
   useTheme,
   useMediaQuery,
+  Switch,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
@@ -22,10 +23,11 @@ import {
   ExitToApp as LogoutIcon,
 } from '@material-ui/icons'
 import AvartarText from '../UI/AvartarText'
+import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
 function ProfileMenu() {
   const history = useHistory()
   const { userState, userDispatch } = useContext(UserContext)
-  const { uiDispatch } = useContext(UIContext)
+  const { uiState, uiDispatch } = useContext(UIContext)
   const [profileMenu, setProfileMenu] = useState(null)
 
   const theme = useTheme()
@@ -62,8 +64,8 @@ function ProfileMenu() {
       <IconButton
         style={{
           marginLeft: xsScreen ? '4px' : '8px',
-          color: 'black',
-          backgroundColor: '#F0F2F5',
+          color: !uiState.darkMode ? 'dark' : null,
+          backgroundColor: !uiState.darkMode ? '#F0F2F5' : null,
         }}
         onClick={(e) => setProfileMenu(e.currentTarget)}
       >
@@ -76,9 +78,9 @@ function ProfileMenu() {
         open={Boolean(profileMenu)}
         onClose={() => setProfileMenu(null)}
         style={{ marginTop: '50px' }}
-        elevation={0}
+        elevation={7}
       >
-        <Paper style={{ width: '360px', overflowX: 'hidden' }} elevation={8}>
+       
           <List>
             <ListItem
               button
@@ -114,12 +116,12 @@ function ProfileMenu() {
               </ListItemText>
             </ListItem>
 
-            <ListItem button>
+            <ListItem button component={Link} to={`/settings`}>
               <ListItemIcon>
                 <Avatar
                   style={{
-                    background: 'rgb(228,230,235)',
-                    color: 'rgb(96,104,111)',
+                    background: 'teal',
+                    color: '#fff',
                   }}
                 >
                   <SettingsIcon />
@@ -130,12 +132,42 @@ function ProfileMenu() {
               </ListItemText>
             </ListItem>
 
+            <ListItem>
+              <ListItemIcon>
+                <Avatar
+                  style={{
+                    background: 'teal',
+                    color: '#fff',
+                  }}
+                >
+                  {uiState.darkMode ? (
+                    <FontAwesomeIcon icon={faSun} />
+                  ) : (
+                    <FontAwesomeIcon icon={faMoon} />
+                  )}
+                </Avatar>
+              </ListItemIcon>
+              <ListItemText>
+                <Switch
+                  checked={uiState.darkMode}
+                  onChange={(e) =>
+                    uiDispatch({
+                      type: 'SET_DARK_MODE',
+                      payload: e.target.checked,
+                    })
+                  }
+                  name="checkedB"
+                  color="primary"
+                />
+              </ListItemText>
+            </ListItem>
+
             <ListItem button onClick={handleUserLogout}>
               <ListItemIcon>
                 <Avatar
                   style={{
-                    background: 'rgb(228,230,235)',
-                    color: 'rgb(96,104,111)',
+                    background: 'teal',
+                    color: '#fff',
                   }}
                 >
                   <LogoutIcon />
@@ -146,7 +178,7 @@ function ProfileMenu() {
               </ListItemText>
             </ListItem>
           </List>
-        </Paper>
+       
       </Menu>
     </div>
   )

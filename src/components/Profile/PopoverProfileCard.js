@@ -28,7 +28,7 @@ import {
   faUserGraduate,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'
-function PopoverProfileCrd({ user }) {
+function PopoverProfileCard({ user }) {
   return (
     <Card elevation={0} style={{ maxWidth: '400px' }}>
       <CardHeader
@@ -41,7 +41,7 @@ function PopoverProfileCrd({ user }) {
               <Avatar
                 alt={user.name}
                 src={user.profile_pic}
-                style={{ width: '100%', height: '100%' }}
+                style={{ width: '70px', height: '70px' }}
               />
             </StyledBadge>
           ) : (
@@ -66,13 +66,8 @@ function PopoverProfileCrd({ user }) {
         }
         subheader={
           <>
-            <Grid
-              container
-              alignItems="flex-start"
-              justify="space-between"
-              style={{ marginBottom: '4px', marginTop: '4px' }}
-            >
-              <Grid item md={2}>
+            <Grid container alignItems="center" justify="space-between">
+              <Grid item md={4}>
                 <Avatar
                   style={{
                     background: 'rgb(240,242,245)',
@@ -83,12 +78,17 @@ function PopoverProfileCrd({ user }) {
                   <FontAwesomeIcon icon={faMapMarkerAlt} />
                 </Avatar>
               </Grid>
-              <Grid item md={10}>
-                <Typography>Bhagalpur-812004,Bihar,India</Typography>
+              <Grid item md={8}>
+                <Typography>{user?.location}</Typography>
               </Grid>
             </Grid>
-            <Grid container alignItems="flex-start" justify="space-between">
-              <Grid item md={2}>
+            <Grid
+              container
+              alignItems="center"
+              justify="space-between"
+              style={{ marginTop: '4px' }}
+            >
+              <Grid item md={4}>
                 <Avatar
                   style={{
                     background: 'rgb(240,242,245)',
@@ -99,36 +99,28 @@ function PopoverProfileCrd({ user }) {
                   <FontAwesomeIcon icon={faUserGraduate} />
                 </Avatar>
               </Grid>
-              <Grid item md={10}>
+              <Grid item md={8}>
                 <Typography style={{ fontSize: '14px' }} variant="body2">
-                  lorem epsum dolor sitlorem epsum dolor sitlorem epsum dolor
+                  {user?.education}
                 </Typography>
               </Grid>
             </Grid>
           </>
         }
       />
+
       <CardActions>
         <Grid container alignItems="center" justify="space-evenly">
-        <Chip
-          icon={<FontAwesomeIcon icon={faUsers} />}
-          size="small"
-          label="Friends 6"
-        />
-        <Chip
-          icon={<FontAwesomeIcon icon={faUserFriends} />}
-          label="Mutual Friends 8"
-          size="small"
-        />
-        <Chip
-          icon={<FontAwesomeIcon icon={faHeart} />}
-          label=" Followers 6"
-          size="small"
-        />
+          <Chip
+            icon={<FontAwesomeIcon icon={faUsers} />}
+            size="large"
+            color="primary"
+            label={`Friends ${user.friends.length}`}
+          />
         </Grid>
       </CardActions>
     </Card>
   )
 }
 
-export default PopoverProfileCrd
+export default PopoverProfileCard

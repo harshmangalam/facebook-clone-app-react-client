@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { MoreHoriz, Edit, SearchOutlined } from '@material-ui/icons'
 import {
   Paper,
@@ -16,22 +16,27 @@ import {
 
 import ProfileHeader from './ProfileHeader'
 import ProfileTimeline from './ProfileTimeline'
+import { UIContext } from '../../App'
 
-function UserProfile({ user,conScreen }) {
+function UserProfile({ user, conScreen }) {
+  const { uiState } = useContext(UIContext)
   const [value, setValue] = React.useState(0)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
   return (
-    <div>
-      <Paper style={{ width: '100%' }}>
+    <div style={{ minHeight: '100vh' }}>
+      <Paper style={{ width: '100%',backgroundColor:uiState.darkMode && 'rgb(36,37,38)' }}>
         <ProfileHeader user={user} />
         <Grid container justify="center" alignItems="center">
           <Grid item xs={12} sm={12} md={8}>
             <Divider />
             <AppBar
               position="static"
-              style={{ background: '#fff', color: 'black' }}
+              style={{
+                background: uiState.darkMode ? 'rgb(36,37,38)' : '#fff',
+                color: uiState.darkMode ? '#fff' : 'black',
+              }}
               elevation={0}
             >
               <Tabs

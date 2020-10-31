@@ -2,7 +2,7 @@ import React from 'react'
 import Popover from '@material-ui/core/Popover'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
-import PopoverProfileCard from "./PopoverProfileCrd"
+import PopoverProfileCard from "./PopoverProfileCard"
 const useStyles = makeStyles((theme) => ({
   popover: {
     pointerEvents: 'none',

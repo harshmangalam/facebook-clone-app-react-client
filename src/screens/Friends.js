@@ -4,9 +4,6 @@ import {
   makeStyles,
   Avatar,
   Grid,
-  Container,
-  useTheme,
-  useMediaQuery,
   CardActions,
   Button,
 } from '@material-ui/core'
@@ -16,14 +13,13 @@ import { Link, useHistory } from 'react-router-dom'
 import { UIContext, UserContext } from '../App'
 import DrawerBar from '../components/Navbar/DrawerBar'
 import UserProfile from '../components/Profile/UserProfile'
+import Friend from '../components/Friends/Friend'
+import useFriendAction from '../hooks/useFriendActions'
 import {
-  acceptFriendRequest,
   fetchIncommingFriendRequests,
   fetchRecommandedUsers,
-  declineFriendRequest,
+  fetchSendedFriendRequests,
 } from '../services/UserServices'
-import Friend from '../components/Friends/Friend'
-
 const useStyles = makeStyles((theme) => ({
   sidebarContainer: {
     display: 'flex',
@@ -37,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     width: '90%',
     height: '1px',
-    background: 'rgb(206,208,212)',
     marginTop: '16px',
   },
 
@@ -64,17 +59,22 @@ const useStyles = makeStyles((theme) => ({
 }))
 function Friends() {
   const classes = useStyles()
-  const theme = useTheme()
-  const match = useMediaQuery(theme.breakpoints.between(960, 1400))
   const { uiState, uiDispatch } = useContext(UIContext)
   const { userState, userDispatch } = useContext(UserContext)
 
-  const history = useHistory()
-
   useEffect(() => {
     uiDispatch({ type: 'SET_NAV_MENU', payload: true })
+    async function sendedFriendRequest() {
+      const res = await fetchSendedFriendRequests()
+      if (res.data) {
+        userDispatch({
+          type: 'SET_FRIENDS_REQUEST_SENDED',
+          payload: res.data.friends,
+        })
+      }
+    }
 
-    async function receivedFriendRequest() {
+    async function incommingFriendRequest() {
       const res = await fetchIncommingFriendRequests()
       if (res && res.data) {
         userDispatch({
@@ -84,7 +84,7 @@ function Friends() {
       }
     }
 
-    async function fetchRecommandedUser() {
+    async function recommandedUser() {
       const res = await fetchRecommandedUsers()
       if (res && res.data) {
         userDispatch({
@@ -94,8 +94,9 @@ function Friends() {
       }
     }
 
-    receivedFriendRequest()
-    fetchRecommandedUser()
+    recommandedUser()
+    incommingFriendRequest()
+    sendedFriendRequest()
 
     return () => {
       userDispatch({ type: 'REMOVE_SELECTED_USER_PROFILE', payload: null })
@@ -103,69 +104,55 @@ function Friends() {
     }
   }, [])
 
-  const handleAcceptFriendRequest = (request_id) => {
-    acceptFriendRequest(request_id).then((res) => {
-      if (res.data) {
+  const {
+    acceptFriendRequest,
+    declineFriendRequest,
+    cancelFriendRequest,
+  } = useFriendAction()
 
-         userDispatch({
-          type: 'ADD_FRIEND',
-          payload: res.data.user,
-        })
-        userDispatch({
-          type: 'REMOVE_FRIENDS_REQUEST_RECEIVED',
-          payload: request_id,
-        })
-       
-        uiDispatch({
-          type: 'SET_MESSAGE',
-          payload: { color: 'success', display: true, text: res.data.message },
-        })
-      }
-      if (res.error) {
-        uiDispatch({
-          type: 'SET_MESSAGE',
-          payload: { color: 'error', display: true, text: res.error },
-        })
-      }
-    })
+  const handleAcceptFriendRequest = (request_id) => {
+    acceptFriendRequest(request_id)
   }
 
   const handleDeclineFriendRequest = (request_id) => {
-    declineFriendRequest(request_id).then((res) => {
-      if (res.data) {
-        userDispatch({
-          type: 'REMOVE_FRIENDS_REQUEST_RECEIVED',
-          payload: request_id,
-        })
-        uiDispatch({
-          type: 'SET_MESSAGE',
-          payload: { color: 'success', display: true, text: res.data.message },
-        })
-      }
-      if (res.error) {
-        uiDispatch({
-          type: 'SET_MESSAGE',
-          payload: { color: 'error', display: true, text: res.error },
-        })
-      }
-    })
+    declineFriendRequest(request_id)
+  }
+
+  const handleCancelFriendRequest = (request_id) => {
+    cancelFriendRequest(request_id)
   }
 
   const metaData = (
     <div className={classes.sidebarContainer}>
       <Typography variant="h4">Friends</Typography>
-      <Typography variant="h6">Friend Requests</Typography>
-      <Typography>
-        <Link
-          style={{ textDecoration: 'none' }}
-          to="/friends/sended_friend_request"
-        >
-          view sent request
-        </Link>
-      </Typography>
 
-      {userState.receivedFriendRequests.length
-        ? userState.receivedFriendRequests.map((request) => (
+      {userState.sendedFriendRequests.length ? (
+        <>
+          <Typography variant="h6">Sended Friend Request</Typography>
+          {userState.sendedFriendRequests.map((request) => (
+            <Friend user={request.user} key={request.id}>
+              <CardActions>
+                <Button
+                  onClick={() => handleCancelFriendRequest(request.id)}
+                  variant="contained"
+                  style={{
+                    background: 'tomato',
+                    color: 'white',
+                  }}
+                >
+                  Cancel
+                </Button>
+              </CardActions>
+            </Friend>
+          ))}
+        </>
+      ) : null}
+
+      {userState.receivedFriendRequests.length ? (
+        <>
+          <Typography variant="h6">Incomming Friend Requests</Typography>
+
+          {userState.receivedFriendRequests.map((request) => (
             <div>
               <Friend user={request.user} key={request.id}>
                 <CardActions>
@@ -192,10 +179,9 @@ function Friends() {
                 </CardActions>
               </Friend>
             </div>
-          ))
-        : null}
-
-      <div className={classes.divider}></div>
+          ))}
+        </>
+      ) : null}
     </div>
   )
   return (
@@ -203,7 +189,7 @@ function Friends() {
       {uiState.mdScreen ? (
         <Grid container spacing={0}>
           <Grid item md={3}>
-            <Sidebar>
+            <Sidebar background={uiState.darkMode && 'rgb(36,37,38)'}>
               {metaData}
 
               <UserLists users={userState.users} />
@@ -232,7 +218,10 @@ function Friends() {
       )}
 
       {!userState.selectedUserProfile && (
-        <div className={classes.main}>
+        <div
+          className={classes.main}
+          style={{ backgroundColor: uiState.darkMode ? 'rgb(24,25,26)' : null }}
+        >
           <Avatar variant="square" className={classes.avatar}>
             <img
               src={require('../assets/selectFriends.svg')}

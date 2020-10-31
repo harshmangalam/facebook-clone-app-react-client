@@ -1,27 +1,5 @@
 import axios from 'axios'
 const url = process.env.REACT_APP_ENDPOINT
-export const createPost = async (postData) => {
-  let token = localStorage.token && JSON.parse(localStorage.getItem('token'))
-  try {
-    const { data } = await axios.post(`${url}/api/post/`, postData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    if (data) {
-      return {
-        data,
-      }
-    }
-  } catch (err) {
-    if (err && err.response) {
-      return {
-        status: err.response.status,
-        error: err.response.data.error,
-      }
-    }
-  }
-}
 
 export const fetchAllPosts = async () => {
   let token = JSON.parse(localStorage.token)

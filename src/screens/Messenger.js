@@ -1,5 +1,12 @@
 import React, { useContext, useEffect } from 'react'
-import { Avatar, Container, Grid, Paper, Typography } from '@material-ui/core'
+import {
+  Avatar,
+  Container,
+  Divider,
+  Grid,
+  Paper,
+  Typography,
+} from '@material-ui/core'
 import { ChatContext, UIContext } from '../App'
 import Messages from '../components/Chat/Messages'
 import DrawerBar from '../components/Navbar/DrawerBar'
@@ -25,7 +32,11 @@ function Messenger() {
 
   return (
     <div
-      style={{ marginTop: '75px', marginBottom: !uiState.mdScreen && '24px' }}
+      style={{
+        paddingTop: '100px',
+        paddingBottom: '40px',
+        minHeight: '100vh',
+      }}
     >
       {!uiState.mdScreen && (
         <DrawerBar>
@@ -33,7 +44,7 @@ function Messenger() {
         </DrawerBar>
       )}
       <Container>
-        <Paper>
+        <Paper style={{ backgroundColor: uiState.darkMode && 'rgb(36,37,38)' }}>
           <Grid
             container
             justify="center"
@@ -51,6 +62,9 @@ function Messenger() {
                   height: '80vh',
                   overflowY: 'scroll',
                   overflowX: 'hidden',
+                  scrollbarColor: !uiState.darkMode
+                    ? '#fff rgb(240,242,245)'
+                    : ' rgb(36,37,38) rgb(24,25,26)',
                 }}
               >
                 <Paper elevation={0}>
@@ -82,11 +96,15 @@ function Messenger() {
                     width: '100%',
                     position: 'sticky',
                     top: 0,
+                    backgroundColor: uiState.darkMode && 'rgb(36,37,38)',
                   }}
                 >
                   {chatState.selectedFriend.profile_pic ? (
                     <Avatar>
-                      <img src={chatState.selectedFriend.profile_pic} />
+                      <img
+                        src={chatState.selectedFriend.profile_pic}
+                        style={{ width: '100%', height: '100%' }}
+                      />
                     </Avatar>
                   ) : (
                     <AvartarText
@@ -109,6 +127,11 @@ function Messenger() {
                     height: '60vh',
                     overflowY: 'scroll',
                     overflowX: 'hidden',
+                    scrollbarColor: !uiState.darkMode
+                      ? '#fff #fff'
+                      : ' rgb(36,37,38) rgb(36,37,38)',
+
+                    backgroundColor: uiState.darkMode && 'rgb(36,37,38)',
                   }}
                 >
                   <Messages />

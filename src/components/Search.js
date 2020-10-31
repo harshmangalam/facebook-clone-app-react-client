@@ -1,16 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { makeStyles, InputBase } from '@material-ui/core'
 import { Search as SearchIcon } from '@material-ui/icons'
+import { UIContext } from '../App'
 const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: '50px 50px 50px 50px',
-    backgroundColor: '#F0F2F5',
-    width:"100%"
+    width: '100%',
   },
 
   searchIcon: {
-    color: '#606770;',
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -20,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   inputRoot: {
-    color: 'black',
     padding: '3px 10px 3px 0px',
   },
   inputInput: {
@@ -30,9 +28,16 @@ const useStyles = makeStyles((theme) => ({
 }))
 function Search({ placeholder }) {
   const classes = useStyles()
+  const { uiState } = useContext(UIContext)
   return (
-    <div className={classes.search}>
-      <div className={classes.searchIcon}>
+    <div
+      className={classes.search}
+      style={{ backgroundColor: !uiState.darkMode ? '#F0F2F5' : null }}
+    >
+      <div
+        className={classes.searchIcon}
+        style={{ color: !uiState.darkMode ? '#606770' : null }}
+      >
         <SearchIcon />
       </div>
       <InputBase
@@ -42,7 +47,9 @@ function Search({ placeholder }) {
           input: classes.inputInput,
         }}
         inputProps={{ 'aria-label': 'search' }}
-        style={{width:'100%'}}
+        style={{
+          width: '100%',
+        }}
       />
     </div>
   )

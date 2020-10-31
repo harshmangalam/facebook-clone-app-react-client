@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
+import { UIContext } from "../../App";
 import {
   CardContent,
   CardMedia,
@@ -11,6 +12,7 @@ import {
 import PostSubContent from './PostSubContent'
 
 function PostContent({ post }) {
+  const {uiState} = useContext(UIContext)
   function isContent() {
     return (
       post.body.feelings ||
@@ -27,7 +29,7 @@ function PostContent({ post }) {
         <CardContent
           style={{
             marginBottom: '16px',
-            background: 'rgb(240,242,245)',
+            background: uiState.darkMode ? 'rgb(76,76,76)' : 'rgb(240,242,245)',
             padding: '16px',
           }}
         >

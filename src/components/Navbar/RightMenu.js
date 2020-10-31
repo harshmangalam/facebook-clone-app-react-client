@@ -19,7 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ProfileMenu from './ProfileMenu'
 import CreatePostMenu from './CreatePostMenu'
 import AvartarText from '../UI/AvartarText'
-
+import NotificationMenu from '../NotificationMenu'
 function RightMenu() {
   const classes = useStyles()
   const { uiState } = useContext(UIContext)
@@ -35,7 +35,11 @@ function RightMenu() {
   return (
     <Fragment>
       {uiState.mdScreen && (
-        <Button component={NavLink} activeStyle={{ border: '3px dotted rgb(240,242,245)' }} to={`/profile/${userState.currentUser.id}`}>
+        <Button
+          component={NavLink}
+          activeStyle={{ border: '3px dotted rgb(240,242,245)' }}
+          to={`/profile/${userState.currentUser.id}`}
+        >
           <Chip
             label={
               <h3>
@@ -47,11 +51,11 @@ function RightMenu() {
               userState.currentUser.profile_pic ? (
                 <Avatar alt="Natacha" src={userState.currentUser.profile_pic} />
               ) : (
-                  <AvartarText
-                    text={userState.currentUser.name}
-                    bg={userState.currentUser.active ? 'seagreen' : 'tomato'}
-                  />
-                )
+                <AvartarText
+                  text={userState.currentUser.name}
+                  bg={userState.currentUser.active ? 'seagreen' : 'tomato'}
+                />
+              )
             }
           />
         </Button>
@@ -60,11 +64,12 @@ function RightMenu() {
       <CreatePostMenu />
       <IconButton
         component={NavLink}
-        activeStyle={{color: 'rgb(1,133,243)' }} to="/messenger"
+        activeStyle={{ color: 'rgb(1,133,243)' }}
+        to="/messenger"
         style={{
           marginLeft: xsScreen ? '4px' : '8px',
-          color: 'black',
-          backgroundColor: '#F0F2F5',
+          color: !uiState.darkMode ? 'black' : null,
+          backgroundColor: !uiState.darkMode ? '#F0F2F5' : null,
         }}
       >
         <FontAwesomeIcon
@@ -72,15 +77,13 @@ function RightMenu() {
           size={xsScreen ? 'xs' : 'sm'}
         />
       </IconButton>
-      <IconButton
-        style={{
-          marginLeft: xsScreen ? '4px' : '8px',
-          color: 'black',
-          backgroundColor: '#F0F2F5',
-        }}
-      >
-        <Badge max={10} badgeContent={99} {...defaultPropsNotif} />
-      </IconButton>
+      <NotificationMenu>
+        <Badge
+          max={5}
+          badgeContent={uiState.notifications.length || '0'}
+          {...defaultPropsNotif}
+        />
+      </NotificationMenu>
 
       <ProfileMenu />
     </Fragment>

@@ -25,7 +25,7 @@ import MyFriendLists from '../components/Friends/MyFriendLists'
 function Home() {
   const { uiState, uiDispatch } = useContext(UIContext)
   const { userState, userDispatch } = useContext(UserContext)
-  const { postDispatch } = useContext(PostContext)
+  const { postDispatch, postState } = useContext(PostContext)
   const theme = useTheme()
   const match = useMediaQuery(theme.breakpoints.between(960, 1400))
 
@@ -54,7 +54,9 @@ function Home() {
         <Fragment>
           <Sidebar
             anchor="left"
-            background="rgb(240,242,245)"
+            background={
+              !uiState.darkMode ? 'rgb(240,242,245)' : 'rgb(24,25,26)'
+            }
             boxShadow={false}
           >
             <List>
@@ -67,8 +69,8 @@ function Home() {
                   {userState.currentUser.profile_pic ? (
                     <Avatar
                       style={{
-                        width: '60px',
-                        height: '60px',
+                        width: '50px',
+                        height: '50px',
                       }}
                     >
                       <img
@@ -84,7 +86,10 @@ function Home() {
                     />
                   )}
                 </ListItemIcon>
-                <ListItemText primary={userState.currentUser.name} />
+                <ListItemText
+                  style={{ marginLeft: '6px' }}
+                  primary={userState.currentUser.name}
+                />
               </ListItem>
               {homeLeftItems.map((list, index) => (
                 <ListItem button key={index} component={Link} to={list.to}>
@@ -101,7 +106,9 @@ function Home() {
           </Sidebar>
           <Sidebar
             anchor="right"
-            background="rgb(240,242,245)"
+            background={
+              !uiState.darkMode ? 'rgb(240,242,245)' : 'rgb(24,25,26)'
+            }
             boxShadow={false}
             drawerWidth={380}
           >
@@ -119,12 +126,14 @@ function Home() {
           maxWidth: uiState.mdScreen ? (match ? '45vw' : '38vw') : '100vw',
           padding: !uiState.mdScreen && '0px 4px 0px 4px',
           margin: 'auto',
+          paddingTop: '100px',
+          paddingBottom: '100px',
+          minHeight: '100vh',
         }}
       >
-        <div style={{ marginTop: '100px', marginBottom: '100px' }}>
-          <WritePostCard user={userState.currentUser} />
-          <Posts />
-        </div>
+        <WritePostCard user={userState.currentUser} />
+
+        <Posts posts={postState.posts} />
       </div>
     </div>
   )

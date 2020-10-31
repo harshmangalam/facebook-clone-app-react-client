@@ -4,8 +4,6 @@ const drawerWidth = 380
 export default makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: 'white',
-    color: 'blue',
     zIndex: theme.zIndex.drawer + 1,
   },
 
@@ -35,17 +33,13 @@ export default makeStyles((theme) => ({
     padding: '10px 50px 10px 50px',
     borderRadius: '10px 10px 10px 10px',
   },
- 
+
   activeBtn: {
     borderBottom: '4px solid #3578E5',
     borderRadius: '0px',
-    background: 'tranfparent',
-    '&:hover': {
-      background: 'white',
-    },
+    background: 'transparent',
   },
 
-  
   rightMenu: {
     flexGrow: 2,
     display: 'flex',
@@ -55,11 +49,9 @@ export default makeStyles((theme) => ({
   },
 
   profile_chip: {
-    background: 'white',
     paddingTop: '16px',
     paddingBottom: '16px',
     '&:hover': {
-      background: 'rgb(240,242,245)',
       cursor: 'pointer',
     },
   },

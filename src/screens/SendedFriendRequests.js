@@ -18,18 +18,7 @@ import { cancelFriendRequest, fetchSendedFriendRequests } from '../services/User
 function SendedFriendRequests() {
   const { userDispatch, userState } = useContext(UserContext)
   const { uiDispatch } = useContext(UIContext)
-  useState(() => {
-    async function sendedFriendRequest() {
-      const res = await fetchSendedFriendRequests()
-      if (res && res.data) {
-        userDispatch({
-          type: 'SET_FRIENDS_REQUEST_SENDED',
-          payload: res.data.friends,
-        })
-      }
-    }
-    sendedFriendRequest()
-  }, [])
+ 
 
   const handleCancelSendedFriendRequest = (request_id) => {
     cancelFriendRequest(request_id).then((res) => {

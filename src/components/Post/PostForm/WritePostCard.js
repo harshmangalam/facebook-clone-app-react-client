@@ -1,20 +1,24 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { UIContext, UserContext } from '../../../App'
 
-import { Paper, Avatar, Divider, Button, Grid } from '@material-ui/core'
+import { Paper, Avatar } from '@material-ui/core'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImage } from '@fortawesome/free-regular-svg-icons'
-import { faMap } from '@fortawesome/free-solid-svg-icons'
 import PostFormCard from './PostDialog/PostFormCard'
 import AvartarText from '../../UI/AvartarText'
 
 function PostCard({ user }) {
   const { userState } = useContext(UserContext)
+  const { uiState } = useContext(UIContext)
 
   return (
     <div>
-      <Paper style={{ maxWidth: '100%', padding: '16px' }}>
+      <Paper
+        style={{
+          maxWidth: '100%',
+          padding: '16px',
+          backgroundColor: uiState.darkMode && 'rgb(36,37,38)',
+        }}
+      >
         <div
           style={{
             display: 'flex',
@@ -42,7 +46,6 @@ function PostCard({ user }) {
             <PostFormCard />
           </div>
         </div>
-       
       </Paper>
     </div>
   )

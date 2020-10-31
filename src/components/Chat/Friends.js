@@ -7,14 +7,14 @@ import {
   ListSubheader,
 } from '@material-ui/core'
 import React, { useContext } from 'react'
-import { UserContext, ChatContext,UIContext } from '../../App'
+import { UserContext, ChatContext, UIContext } from '../../App'
 import { fetchFriendMessages } from '../../services/ChatService'
 import AvartarText from '../UI/AvartarText'
 
 function Friends() {
   const { userState } = useContext(UserContext)
   const { chatDispatch } = useContext(ChatContext)
-  const { uiDispatch } = useContext(UIContext)
+  const { uiState,uiDispatch } = useContext(UIContext)
 
   const handleFriendSelect = (friend) => {
     uiDispatch({ type: 'SET_DRAWER', payload: false })
@@ -29,9 +29,8 @@ function Friends() {
   }
   return (
     <List
-      subheader={
-        <ListSubheader component="div">Your Friends</ListSubheader>
-      }
+      subheader={<ListSubheader component="div">Your Friends</ListSubheader>}
+      style={{backgroundColor:uiState.darkMode && 'rgb(36,37,38)'}}
     >
       {userState.currentUser.friends &&
         userState.currentUser.friends.length &&

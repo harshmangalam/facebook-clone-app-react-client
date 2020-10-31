@@ -10,11 +10,13 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Add, Close } from '@material-ui/icons'
-import React from 'react'
+import React, { useContext } from 'react'
+import { UIContext } from '../../../App'
 import LoginForm from '../LoginForm'
 
 function AddAccount() {
   const [addAccount, handleAddAccount] = React.useState(false)
+  const {uiState} = useContext(UIContext)
   return (
     <>
       <Card>
@@ -22,7 +24,7 @@ function AddAccount() {
           <CardMedia
             style={{
               height: '150px',
-              background: 'rgb(245,246,247)',
+              background: !uiState.darkMode ? 'rgb(245,246,247)' : null,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -64,7 +66,7 @@ function AddAccount() {
               }
               action={
                 <IconButton
-                  style={{ background: 'rgb(240,242,245)' }}
+                  color="primary"
                   onClick={() => handleAddAccount(false)}
                 >
                   <Close />

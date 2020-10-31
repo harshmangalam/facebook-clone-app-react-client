@@ -1,10 +1,9 @@
 import { Avatar, Grid, makeStyles, Paper, Typography } from '@material-ui/core'
 import React, { Fragment, useContext, useEffect, useRef } from 'react'
-import { ChatContext, UserContext } from '../../App'
+import { ChatContext, UIContext, UserContext } from '../../App'
 import moment from 'moment'
 const useStyles = makeStyles((theme) => ({
   me: {
-    background: 'rgb(220,245,198)',
     padding: '8px',
     maxWidth: '60%',
     float: 'right',
@@ -12,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   partner: {
-    background: '#fff',
     padding: '8px',
     maxWidth: '60%',
 
@@ -23,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   date: {
     fontSize: '12px',
-    color: '#00000099',
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -38,6 +36,7 @@ function Messages() {
 
   const { chatState } = useContext(ChatContext)
   const { userState } = useContext(UserContext)
+  const { uiState } = useContext(UIContext)
 
   useEffect(() => {
     scrollToBottom()
@@ -53,9 +52,19 @@ function Messages() {
             <Fragment key={message.id}>
               {userState.currentUser.id !== message.sender.id ? (
                 <Grid item xs={12} md={12} sm={12}>
-                  <Paper className={classes.partner}>
+                  <Paper
+                    className={classes.partner}
+                    style={{
+                      backgroundColor: uiState.darkMode
+                        ? 'seagreen'
+                        : 'rgb(240,242,245)',
+                      color: uiState.darkMode && '#fff',
+                    }}
+                  >
                     {message.body.text && (
-                      <Typography style={{wordWrap:"break-word"}}>{message.body.text}</Typography>
+                      <Typography style={{ wordWrap: 'break-word' }}>
+                        {message.body.text}
+                      </Typography>
                     )}
                     {message.body.image && (
                       <Avatar variant="square">
@@ -66,7 +75,7 @@ function Messages() {
                         />
                       </Avatar>
                     )}
-                    <Typography  className={classes.date}>
+                    <Typography className={classes.date}>
                       {moment(message.createdAt).fromNow()}
                     </Typography>
                   </Paper>
@@ -79,9 +88,19 @@ function Messages() {
                   sm={12}
                   style={{ marginTop: '16px' }}
                 >
-                  <Paper className={classes.me}>
+                  <Paper
+                    className={classes.me}
+                    style={{
+                      backgroundColor: uiState.darkMode
+                        ? 'rgb(1,133,243)'
+                        : 'rgb(220,245,198)',
+                      color: uiState.darkMode && '#fff',
+                    }}
+                  >
                     {message.body.text && (
-                      <Typography style={{wordWrap:"break-word"}}>{message.body.text}</Typography>
+                      <Typography style={{ wordWrap: 'break-word' }}>
+                        {message.body.text}
+                      </Typography>
                     )}
                     {message.body.image && (
                       <Avatar variant="square">
@@ -92,7 +111,10 @@ function Messages() {
                         />
                       </Avatar>
                     )}
-                    <Typography className={classes.date}>
+                    <Typography
+                      className={classes.date}
+                      style={{ color: uiState.darkMode ? '#fff' : '#00000099' }}
+                    >
                       {moment(message.createdAt).fromNow()}
                     </Typography>
                   </Paper>

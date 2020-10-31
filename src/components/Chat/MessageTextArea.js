@@ -1,11 +1,11 @@
 import { IconButton, InputBase, Paper, makeStyles } from '@material-ui/core'
 import { Send } from '@material-ui/icons'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { UIContext } from '../../App'
 import useSendMessage from '../../hooks/useSendMessage'
 
 const useStyles = makeStyles((theme) => ({
   inputRoot: {
-    color: 'black',
     padding: '16px 8px 16px 8px',
   },
   inputInput: {
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function MessageTextArea() {
+  const { uiState } = useContext(UIContext)
   const classes = useStyles()
   const [textMessage, setTextMessage] = useState('')
 
@@ -26,12 +27,13 @@ function MessageTextArea() {
   }
   return (
     <Paper
-    elevation={0}
+      elevation={0}
       style={{
         display: 'flex',
         alignItems: 'center',
         padding: '16px',
         width: '100%',
+        backgroundColor: uiState.darkMode && 'rgb(36,37,38)',
       }}
     >
       <InputBase
@@ -46,7 +48,7 @@ function MessageTextArea() {
         }}
         style={{
           borderRadius: '20px 20px 20px 20px',
-          backgroundColor: 'whitesmoke',
+          backgroundColor: uiState.darkMode ? 'rgb(24,25,26)' : 'whitesmoke',
           width: '100%',
         }}
       />

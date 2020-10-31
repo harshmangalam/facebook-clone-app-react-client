@@ -1,12 +1,10 @@
 import React, { useContext } from 'react'
-import { PostContext } from '../../App'
 import Post from './Post'
-function Posts() {
-    const {postState} = useContext(PostContext)
+function Posts({ posts }) {
   return (
     <div>
-      {postState.posts.length
-        ? postState.posts.map((post) => (
+      {posts.length
+        ? posts.map((post) => (
             <div key={post.id}>
               <Post post={post} />
             </div>

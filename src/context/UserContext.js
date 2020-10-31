@@ -43,6 +43,15 @@ export const UserReducer = (state, action) => {
         }
       }
 
+    case 'UPDATE_PROFILE':
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          [action.payload.label]: action.payload.value,
+        },
+      }
+
     case 'REMOVE_ACCOUNT':
       let accountArray = state.recentAccounts.filter(
         (account) => account.id != action.payload,
@@ -72,18 +81,29 @@ export const UserReducer = (state, action) => {
       }
 
     case 'ADD_USER':
-      let index_io1 = state.users.findIndex(user => user.id == action.payload.id)
+      let index_io1 = state.users.findIndex(
+        (user) => user.id == action.payload.id,
+      )
 
       if (index_io1 === -1) {
         return {
           ...state,
-          users: [action.payload, ...state.users]
+          users: [action.payload, ...state.users],
         }
       } else {
         return {
-          ...state
-
+          ...state,
         }
+      }
+
+    case 'UPDATE_USER':
+      let i_01 = state.users.findIndex((user) => user.id == action.payload.id)
+      if (i_01 !== -1) {
+        state.users[i_01] = action.payload
+      }
+      return {
+        ...state,
+        currentUser: action.payload,
       }
 
     case 'REMOVE_USER':
@@ -108,25 +128,26 @@ export const UserReducer = (state, action) => {
         selectedUserProfile: null,
       }
 
-
-    case "FRIEND_LOGOUT":
-      let id1_friend = state.currentUser.friends.findIndex(user => user.id == action.payload)
+    case 'FRIEND_LOGOUT':
+      let id1_friend = state.currentUser.friends.findIndex(
+        (user) => user.id == action.payload,
+      )
       if (id1_friend !== -1) {
         state.currentUser.friends[id1_friend].active = false
       }
       return {
         ...state,
-
       }
 
-    case "FRIEND_LOGIN":
-      let id2_friend = state.currentUser.friends.findIndex(user => user.id == action.payload)
+    case 'FRIEND_LOGIN':
+      let id2_friend = state.currentUser.friends.findIndex(
+        (user) => user.id == action.payload,
+      )
       if (id2_friend !== -1) {
         state.currentUser.friends[id2_friend].active = true
       }
       return {
         ...state,
-
       }
     case 'SET_FRIENDS_REQUEST_SENDED':
       return {
@@ -164,13 +185,12 @@ export const UserReducer = (state, action) => {
 
     case 'REMOVE_FRIENDS_REQUEST_RECEIVED':
       let rv_f_filtered = state.receivedFriendRequests.filter(
-        (r) => r.id !== action.payload,
+        (r) => r.id != action.payload,
       )
       return {
         ...state,
         receivedFriendRequests: rv_f_filtered,
       }
-
 
     case 'ADD_FRIEND':
       return {
@@ -193,10 +213,10 @@ export const UserReducer = (state, action) => {
         selectedUserProfile: null,
       }
 
-    case "SET_SOCKETIO":
+    case 'SET_SOCKETIO':
       return {
         ...state,
-        socketio: action.payload
+        socketio: action.payload,
       }
 
     default:

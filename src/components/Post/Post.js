@@ -11,9 +11,17 @@ import PostContent from './PostContent'
 import PostFooter from './PostFooter'
 import AvartarText from '../UI/AvartarText'
 import { MoreHoriz } from '@material-ui/icons'
+import { UIContext } from '../../App'
+
 function Post({ post }) {
+  const { uiState } = useContext(UIContext)
   return (
-    <Card style={{ marginTop: '20px' }}>
+    <Card
+      style={{
+        marginTop: '20px',
+        backgroundColor: uiState.darkMode && 'rgb(36,37,38)',
+      }}
+    >
       <CardHeader
         avatar={
           post.user && post.user.profile_pic ? (

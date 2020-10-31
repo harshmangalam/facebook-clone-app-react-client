@@ -9,11 +9,12 @@ import {
 import React, { useContext, useState } from 'react'
 import AvartarText from '../UI/AvartarText'
 import StyledBadge from '../UI/StyledBadge'
-import { UserContext } from '../../App'
+import { UIContext, UserContext } from '../../App'
 import { SendOutlined } from '@material-ui/icons'
 import useCreateComment from '../../hooks/useCreateComment'
 function CommentTextArea({ post }) {
   const { userState } = useContext(UserContext)
+  const { uiState } = useContext(UIContext)
 
   const [commentText, setCommentText] = useState('')
   const [commentImage, setCommentImage] = useState()
@@ -71,7 +72,7 @@ function CommentTextArea({ post }) {
               width: '100%',
               borderRadius: '20px',
               border: 'none',
-              background: 'rgb(240,242,245)',
+              background: uiState.darkMode ? 'rgb(24,25,26)': 'rgb(240,242,245)',
               padding: '8px 16px',
             }}
           />

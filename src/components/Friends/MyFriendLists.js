@@ -24,11 +24,7 @@ function MyFriendLists() {
       <ListItemAvatar>
         <StyledBadge isActive={user.active}>
           {user.profile_pic ? (
-            <Avatar
-              alt={user.name}
-              src={user.profile_pic}
-              style={{ width: '100%', height: '100%' }}
-            />
+            <Avatar alt={user.name} src={user.profile_pic} />
           ) : (
             <AvartarText
               text={user.name}

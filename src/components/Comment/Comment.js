@@ -58,10 +58,10 @@ function Comment({ comment }) {
         )}
       </ListItemAvatar>
       <ListItemText
-        primary={comment.user.name}
+        primary={<Typography style={{color:uiState.darkMode && '#fff'}}>{comment.user.name}</Typography>}
         secondary={
           <>
-            {comment.body.text && comment.body.text}
+            <Typography>{comment.body.text && comment.body.text}</Typography>
 
             {comment.body.image && (
               <Paper elevation={0} style={{ padding: '8px' }}>

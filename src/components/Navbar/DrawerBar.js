@@ -16,14 +16,16 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     flexShrink: 0,
   },
-  drawerPaper: {
+  drawerPaper:(darkMode)=> ({
     width: drawerWidth,
-  },
+    backgroundColor:darkMode && 'rgb(36,37,38)'
+  }),
 }))
 
 export default function DrawerBar({ children }) {
-  const classes = useStyles()
   const { uiState ,uiDispatch} = useContext(UIContext)
+  const classes = useStyles(uiState.darkMode)
+
   return (
     <div className={classes.root}>
       <Drawer

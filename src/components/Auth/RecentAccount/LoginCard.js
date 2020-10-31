@@ -40,7 +40,7 @@ function LoginCard({ account, loginOpen, setLoginOpen, userData }) {
         <CardHeader
           action={
             <IconButton
-              style={{ background: 'rgb(240,242,245)' }}
+              color="primary"
               onClick={() => setLoginOpen(false)}
             >
               <Close />
@@ -48,6 +48,35 @@ function LoginCard({ account, loginOpen, setLoginOpen, userData }) {
           }
         />
 
+        {account.profile_pic ? (
+          <CardMedia
+            style={{
+              height: '150px',
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Avatar src={account.profile_pic} style={{ height: '200px',width:'200px' }} />
+          </CardMedia>
+        ) : (
+          <CardMedia
+            style={{
+              height: '150px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <AvartarText
+              bg="teal"
+              text={account.name}
+              size="100px"
+              fontSize="35px"
+            />
+          </CardMedia>
+        )}
         <CardContent>
           <div
             style={{
@@ -58,28 +87,6 @@ function LoginCard({ account, loginOpen, setLoginOpen, userData }) {
               justifyContent: 'center',
             }}
           >
-            {account.profile_pic ? (
-              <CardMedia
-                image={account.profile_pic}
-                style={{ height: '150px' }}
-              />
-            ) : (
-              <CardMedia
-                style={{
-                  height: '150px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <AvartarText
-                  bg="teal"
-                  text={account.name}
-                  size="100px"
-                  fontSize="35px"
-                />
-              </CardMedia>
-            )}
             <Typography
               style={{
                 fontWeight: '800',
