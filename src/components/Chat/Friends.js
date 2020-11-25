@@ -5,6 +5,7 @@ import {
   ListItemText,
   Avatar,
   ListSubheader,
+  Typography,
 } from '@material-ui/core'
 import React, { useContext } from 'react'
 import { UserContext, ChatContext, UIContext } from '../../App'
@@ -14,7 +15,7 @@ import AvartarText from '../UI/AvartarText'
 function Friends() {
   const { userState } = useContext(UserContext)
   const { chatDispatch } = useContext(ChatContext)
-  const { uiState,uiDispatch } = useContext(UIContext)
+  const { uiState, uiDispatch } = useContext(UIContext)
 
   const handleFriendSelect = (friend) => {
     uiDispatch({ type: 'SET_DRAWER', payload: false })
@@ -30,31 +31,31 @@ function Friends() {
   return (
     <List
       subheader={<ListSubheader component="div">Your Friends</ListSubheader>}
-      style={{backgroundColor:uiState.darkMode && 'rgb(36,37,38)'}}
+      style={{ backgroundColor: uiState.darkMode && 'rgb(36,37,38)' }}
     >
-      {userState.currentUser.friends &&
-        userState.currentUser.friends.length &&
-        userState.currentUser.friends.map((friend) => {
-          return (
-            <ListItem
-              key={friend.id}
-              button
-              onClick={() => handleFriendSelect(friend)}
-            >
-              <ListItemAvatar>
-                {friend.profile_pic ? (
-                  <Avatar alt={friend.name} src={friend.profile_pic} />
-                ) : (
-                  <AvartarText
-                    text={friend.name}
-                    bg={friend.active ? 'seagreen' : 'tomato'}
-                  />
-                )}
-              </ListItemAvatar>
-              <ListItemText primary={friend.name} />
-            </ListItem>
-          )
-        })}
+      {userState.currentUser.friends && userState.currentUser.friends.length
+        ? userState.currentUser.friends.map((friend) => {
+            return (
+              <ListItem
+                key={friend.id}
+                button
+                onClick={() => handleFriendSelect(friend)}
+              >
+                <ListItemAvatar>
+                  {friend.profile_pic ? (
+                    <Avatar alt={friend.name} src={friend.profile_pic} />
+                  ) : (
+                    <AvartarText
+                      text={friend.name}
+                      bg={friend.active ? 'seagreen' : 'tomato'}
+                    />
+                  )}
+                </ListItemAvatar>
+                <ListItemText primary={friend.name} />
+              </ListItem>
+            )
+          })
+        : <Typography>No Friends</Typography>}
     </List>
   )
 }

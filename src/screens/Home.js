@@ -21,6 +21,7 @@ import AvartarText from '../components/UI/AvartarText'
 
 import Posts from '../components/Post/Posts'
 import MyFriendLists from '../components/Friends/MyFriendLists'
+import useFetchPost from '../hooks/useFetchPost'
 
 function Home() {
   const { uiState, uiDispatch } = useContext(UIContext)
@@ -29,15 +30,13 @@ function Home() {
   const theme = useTheme()
   const match = useMediaQuery(theme.breakpoints.between(960, 1400))
 
+  const { fetchPosts } = useFetchPost()
   useEffect(() => {
     uiDispatch({ type: 'SET_NAV_MENU', payload: true })
     uiDispatch({ type: 'SET_DRAWER', payload: false })
 
     async function loadPosts() {
-      const res = await fetchAllPosts()
-      if (res.data) {
-        postDispatch({ type: 'SET_POSTS', payload: res.data.posts })
-      }
+      await fetchPosts()
     }
 
     loadPosts()
@@ -124,7 +123,6 @@ function Home() {
       <div
         style={{
           maxWidth: uiState.mdScreen ? (match ? '45vw' : '38vw') : '100vw',
-          padding: !uiState.mdScreen && '0px 4px 0px 4px',
           margin: 'auto',
           paddingTop: '100px',
           paddingBottom: '100px',

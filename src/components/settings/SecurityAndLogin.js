@@ -44,31 +44,6 @@ function SecurityAndLogin() {
         Security And Login
       </Typography>
       <Divider />
-      <Grid container style={{ marginTop: '8px' }}>
-        <Grid item xs={12} md={12} sm={12}>
-          <List>
-            {loginInfo.map((info) => (
-              <ListItem>
-                <ListItemIcon>
-                  <Computer />
-                </ListItemIcon>
-                <ListItemText
-                  primary={`${info.device} . ${info.location}`}
-                  secondary={`${info.browser} . ${
-                    info.activeState ? 'Active Now' : info.lastLogin
-                  }`}
-                />
-                <ListItemSecondaryAction>
-                  <IconButton edge="end">
-                    <ExitToApp />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
-        </Grid>
-      </Grid>
-      <Divider />
 
       <Grid container spacing={2} style={{ marginTop: '8px' }}>
         <List style={{ width: '100%' }}>

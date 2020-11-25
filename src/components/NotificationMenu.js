@@ -15,13 +15,19 @@ import {
   useTheme,
   useMediaQuery,
 } from '@material-ui/core'
-import { Notifications as NotificationIcon } from '@material-ui/icons'
+import {
+  DeleteOutlined,
+  Notifications as NotificationIcon,
+} from '@material-ui/icons'
+import useUpdateProfile from '../hooks/useUpdateProfile'
 
 function NotificationMenu({ children }) {
   const { uiState } = useContext(UIContext)
   const [menu, setMenu] = useState(null)
   const theme = useTheme()
   const xsScreen = useMediaQuery(theme.breakpoints.only('xs'))
+
+  const { clearNotification } = useUpdateProfile()
   return (
     <div>
       <IconButton
@@ -46,10 +52,21 @@ function NotificationMenu({ children }) {
       >
         <List
           subheader={
-            <ListSubheader>
+            <ListSubheader
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <Typography style={{ fontSize: '22px', fontWeight: '800' }}>
                 Notifications
               </Typography>
+              {uiState.notifications.length ? (
+                <IconButton onClick={() => clearNotification()}>
+                  <DeleteOutlined />
+                </IconButton>
+              ) : null}
             </ListSubheader>
           }
         >

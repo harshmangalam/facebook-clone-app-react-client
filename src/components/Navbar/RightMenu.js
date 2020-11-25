@@ -35,30 +35,27 @@ function RightMenu() {
   return (
     <Fragment>
       {uiState.mdScreen && (
-        <Button
+        <Chip
           component={NavLink}
-          activeStyle={{ border: '3px dotted rgb(240,242,245)' }}
+          activeStyle={{ backgroundColor: 'teal',color:'#fff' }}
           to={`/profile/${userState.currentUser.id}`}
-        >
-          <Chip
-            label={
-              <h3>
-                {userState.currentUser.name.split(' ')[0].slice(0, 5) + '..'}
-              </h3>
-            }
-            className={classes.profile_chip}
-            avatar={
-              userState.currentUser.profile_pic ? (
-                <Avatar alt="Natacha" src={userState.currentUser.profile_pic} />
-              ) : (
-                <AvartarText
-                  text={userState.currentUser.name}
-                  bg={userState.currentUser.active ? 'seagreen' : 'tomato'}
-                />
-              )
-            }
-          />
-        </Button>
+          label={
+            <h3>
+              {userState.currentUser.name.split(' ')[0].slice(0, 5) + '..'}
+            </h3>
+          }
+          className={classes.profile_chip}
+          avatar={
+            userState.currentUser.profile_pic ? (
+              <Avatar alt="Natacha" src={userState.currentUser.profile_pic} />
+            ) : (
+              <AvartarText
+                text={userState.currentUser.name}
+                bg={userState.currentUser.active ? 'seagreen' : 'tomato'}
+              />
+            )
+          }
+        />
       )}
 
       <CreatePostMenu />

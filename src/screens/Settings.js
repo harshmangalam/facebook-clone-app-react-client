@@ -11,17 +11,13 @@ import {
   Paper,
   Typography,
 } from '@material-ui/core'
-import { SecurityOutlined } from '@material-ui/icons'
+import { SecurityOutlined,LocationCityOutlined,PersonOutline } from '@material-ui/icons'
 import DrawerBar from '../components/Navbar/DrawerBar'
 const General = React.lazy(() => import('../components/settings/General'))
 const SecurityAndLogin = React.lazy(() =>
   import('../components/settings/SecurityAndLogin'),
 )
-const TrigoInformation = React.lazy(() =>
-  import('../components/settings/TrigoInformation'),
-)
-const Privacy = React.lazy(() => import('../components/settings/Privacy'))
-const Blocking = React.lazy(() => import('../components/settings/Blocking'))
+
 const Location = React.lazy(() => import('../components/settings/Location'))
 
 function Settings() {
@@ -57,7 +53,7 @@ function Settings() {
           }}
         >
           <ListItemIcon>
-            <SecurityOutlined />
+            <PersonOutline />
           </ListItemIcon>
           <ListItemText primary="General" />
         </ListItem>
@@ -78,60 +74,9 @@ function Settings() {
           </ListItemIcon>
           <ListItemText primary="Security and Login" />
         </ListItem>
-        <ListItem
-          button
-          onClick={() => handleTabClick('trigo_information')}
-          style={{
-            backgroundColor:
-              tab === 'trigo_information'
-                ? uiState.darkMode
-                  ? 'rgb(76,76,76)'
-                  : 'rgb(235,237,240)'
-                : null,
-          }}
-        >
-          <ListItemIcon>
-            <SecurityOutlined />
-          </ListItemIcon>
-          <ListItemText primary="Your Trigo Information" />
-        </ListItem>
       </List>
       <Divider />
       <List>
-        <ListItem
-          button
-          onClick={() => handleTabClick('privacy')}
-          style={{
-            backgroundColor:
-              tab === 'privacy'
-                ? uiState.darkMode
-                  ? 'rgb(76,76,76)'
-                  : 'rgb(235,237,240)'
-                : null,
-          }}
-        >
-          <ListItemIcon>
-            <SecurityOutlined />
-          </ListItemIcon>
-          <ListItemText primary="Privacy" />
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => handleTabClick('blocking')}
-          style={{
-            backgroundColor:
-              tab === 'blocking'
-                ? uiState.darkMode
-                  ? 'rgb(76,76,76)'
-                  : 'rgb(235,237,240)'
-                : null,
-          }}
-        >
-          <ListItemIcon>
-            <SecurityOutlined />
-          </ListItemIcon>
-          <ListItemText primary="Blocking" />
-        </ListItem>
         <ListItem
           button
           onClick={() => handleTabClick('location')}
@@ -145,7 +90,7 @@ function Settings() {
           }}
         >
           <ListItemIcon>
-            <SecurityOutlined />
+            <LocationCityOutlined />
           </ListItemIcon>
           <ListItemText primary="Location" />
         </ListItem>
@@ -161,20 +106,21 @@ function Settings() {
       }}
     >
       {!uiState.mdScreen && <DrawerBar>{ListContents}</DrawerBar>}
-      <Grid container spacing={1} style={{minHeight:'70vh'}}>
+      <Grid container spacing={1} style={{ minHeight: '70vh' }}>
         {uiState.mdScreen && (
           <Grid item md={4}>
-            <Paper style={{ padding: '8px',height:'100%' }}>{ListContents}</Paper>
+            <Paper style={{ padding: '8px', height: '100%' }}>
+              {ListContents}
+            </Paper>
           </Grid>
         )}
         <Grid item md={8} xs={12} sm={12}>
           <Paper style={{ padding: '16px', width: '100%', height: '100%' }}>
             <Suspense fallback={<Typography>Loading</Typography>}>
               {tab === 'general' && <General />}
-              {tab === 'privacy' && <Privacy />}
+
               {tab === 'security_and_login' && <SecurityAndLogin />}
-              {tab === 'trigo_information' && <TrigoInformation />}
-              {tab === 'blocking' && <Blocking />}
+
               {tab === 'location' && <Location />}
             </Suspense>
           </Paper>

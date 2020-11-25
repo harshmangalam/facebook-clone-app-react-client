@@ -66,45 +66,51 @@ function PopoverProfileCard({ user }) {
         }
         subheader={
           <>
-            <Grid container alignItems="center" justify="space-between">
-              <Grid item md={4}>
-                <Avatar
-                  style={{
-                    background: 'rgb(240,242,245)',
-                    color: 'black',
-                    fontWeight: '800',
-                  }}
-                >
-                  <FontAwesomeIcon icon={faMapMarkerAlt} />
-                </Avatar>
+            {user.location && (
+              <Grid container alignItems="center" justify="space-between">
+                <Grid item md={4}>
+                  <Avatar
+                    style={{
+                      background: 'rgb(240,242,245)',
+                      color: 'black',
+                      fontWeight: '800',
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faMapMarkerAlt} />
+                  </Avatar>
+                </Grid>
+                <Grid item md={8}>
+                  <Typography>
+                    {user.location.city || user.location.region}
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item md={8}>
-                <Typography>{user?.location}</Typography>
+            )}
+            {user.education && (
+              <Grid
+                container
+                alignItems="center"
+                justify="space-between"
+                style={{ marginTop: '4px' }}
+              >
+                <Grid item md={4}>
+                  <Avatar
+                    style={{
+                      background: 'rgb(240,242,245)',
+                      color: 'black',
+                      fontWeight: '800',
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faUserGraduate} />
+                  </Avatar>
+                </Grid>
+                <Grid item md={8}>
+                  <Typography style={{ fontSize: '14px' }} variant="body2">
+                    {user.education}
+                  </Typography>
+                </Grid>
               </Grid>
-            </Grid>
-            <Grid
-              container
-              alignItems="center"
-              justify="space-between"
-              style={{ marginTop: '4px' }}
-            >
-              <Grid item md={4}>
-                <Avatar
-                  style={{
-                    background: 'rgb(240,242,245)',
-                    color: 'black',
-                    fontWeight: '800',
-                  }}
-                >
-                  <FontAwesomeIcon icon={faUserGraduate} />
-                </Avatar>
-              </Grid>
-              <Grid item md={8}>
-                <Typography style={{ fontSize: '14px' }} variant="body2">
-                  {user?.education}
-                </Typography>
-              </Grid>
-            </Grid>
+            )}
           </>
         }
       />
@@ -113,7 +119,7 @@ function PopoverProfileCard({ user }) {
         <Grid container alignItems="center" justify="space-evenly">
           <Chip
             icon={<FontAwesomeIcon icon={faUsers} />}
-            size="large"
+            size="medium"
             color="primary"
             label={`Friends ${user.friends.length}`}
           />

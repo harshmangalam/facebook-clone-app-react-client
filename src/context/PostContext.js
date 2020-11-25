@@ -1,6 +1,16 @@
 export const initialPostState = {
   posts: [],
-  post: {},
+  postPagination: {
+    currentPage: 0,
+    totalPage: 0,
+  },
+  post: {
+    comments: [],
+    commentPagination: {
+      currentPage: 0,
+      totalPage: 0,
+    },
+  },
 }
 
 export const PostReducer = (state, action) => {
@@ -17,14 +27,53 @@ export const PostReducer = (state, action) => {
         post: action.payload,
       }
 
+    case 'REMOVE_CURRENT_POST':
+      return {
+        ...state,
+        post: {
+          comments: [],
+          commentPagination: {
+            currentPage: 0,
+            totalPage: 0,
+          },
+        },
+      }
+
     case 'ADD_POST':
       return {
         ...state,
         posts: [action.payload, ...state.posts],
       }
 
+    case 'POST_PAGINATION':
+      return {
+        ...state,
+        posts: [...state.posts, ...action.payload.posts],
+        postPagination: {
+          ...state.postPagination,
+          currentPage: action.payload.currentPage,
+          totalPage: action.payload.totalPage,
+        },
+      }
+
+    case 'COMMENT_PAGINATION':
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          commentPagination: {
+            ...state.post.commentPagination,
+            currentPage: action.payload.currentPage,
+            totalPage: action.payload.totalPage,
+          },
+          comments:
+            state.post.comments && state.post.comments.length
+              ? [...state.post.comments, ...action.payload.comments]
+              : [...action.payload.comments],
+        },
+      }
+
     case 'LIKE_UNLIKE_POST':
-      
       let l_postIndex = state.posts.findIndex(
         (post) => post.id == action.payload.id,
       )
@@ -45,6 +94,7 @@ export const PostReducer = (state, action) => {
           comments: action.payload,
         },
       }
+
     case 'ADD_POST_COMMENT':
       return {
         ...state,

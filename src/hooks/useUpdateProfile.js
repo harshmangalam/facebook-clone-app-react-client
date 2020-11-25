@@ -8,8 +8,9 @@ const useUpdateProfile = () => {
   const { userDispatch } = useContext(UserContext)
   const { uiDispatch } = useContext(UIContext)
 
+  let token = JSON.parse(localStorage.getItem('token'))
+
   const editName = async (name) => {
-    let token = JSON.parse(localStorage.getItem('token'))
     setLoading(true)
     try {
       const { data } = await axios.put(
@@ -39,7 +40,6 @@ const useUpdateProfile = () => {
   }
 
   const editEmail = async (email) => {
-    let token = JSON.parse(localStorage.getItem('token'))
     setLoading(true)
 
     try {
@@ -68,7 +68,6 @@ const useUpdateProfile = () => {
   }
 
   const editBio = async (bio) => {
-    let token = JSON.parse(localStorage.getItem('token'))
     setLoading(true)
 
     try {
@@ -97,7 +96,6 @@ const useUpdateProfile = () => {
   }
 
   const editLocation = async (location) => {
-    let token = JSON.parse(localStorage.getItem('token'))
     setLoading(true)
 
     try {
@@ -126,7 +124,6 @@ const useUpdateProfile = () => {
     }
   }
   const editEducation = async (education) => {
-    let token = JSON.parse(localStorage.getItem('token'))
     setLoading(true)
 
     try {
@@ -155,7 +152,6 @@ const useUpdateProfile = () => {
   }
 
   const updatePassword = async ({ newPassword, currentPassword }) => {
-    let token = JSON.parse(localStorage.getItem('token'))
     setLoading(true)
 
     try {
@@ -187,6 +183,39 @@ const useUpdateProfile = () => {
     }
   }
 
+  const clearNotification = async () => {
+    setLoading(true)
+
+    try {
+      const { data } = await axios.delete(
+        `${url}/api/user/notifications/clear`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      )
+      setLoading(false)
+      uiDispatch({
+        type: 'SET_MESSAGE',
+        payload: { display: true, text: data.message, color: 'success' },
+      })
+
+      uiDispatch({ type: "SET_NOTIFICATIONS", payload: [] })
+    } catch (err) {
+      setLoading(false)
+
+      if (err && err.response) {
+        uiDispatch({
+          type: 'SET_MESSAGE',
+          payload: {
+            display: true,
+            text: err.response.data.error,
+            color: 'error',
+          },
+        })
+      }
+    }
+  }
+
   return {
     editName,
     editEmail,
@@ -194,6 +223,7 @@ const useUpdateProfile = () => {
     editLocation,
     editEducation,
     updatePassword,
+    clearNotification,
     loading,
   }
 }

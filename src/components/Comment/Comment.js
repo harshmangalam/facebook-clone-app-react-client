@@ -2,14 +2,12 @@ import {
   Avatar,
   Button,
   Divider,
-  ListItemSecondaryAction,
   Paper,
   Typography,
   List,
   ListItem,
   ListItemText,
   ListItemAvatar,
-  Collapse,
 } from '@material-ui/core'
 import React, { useContext, useMemo, useState } from 'react'
 import AvartarText from '../UI/AvartarText'
@@ -18,7 +16,6 @@ import { faThumbsUp as filledLike } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons'
 import { likeDislikeComment } from '../../services/PostServices'
 import { PostContext, UserContext, UIContext } from '../../App'
-import { Reply } from '@material-ui/icons'
 function Comment({ comment }) {
   const { postDispatch } = useContext(PostContext)
   const { userState } = useContext(UserContext)
@@ -58,10 +55,14 @@ function Comment({ comment }) {
         )}
       </ListItemAvatar>
       <ListItemText
-        primary={<Typography style={{color:uiState.darkMode && '#fff'}}>{comment.user.name}</Typography>}
+        primary={
+          <Typography style={{ color: uiState.darkMode && '#fff' }}>
+            {comment.user.name}
+          </Typography>
+        }
         secondary={
           <>
-            <Typography>{comment.body.text && comment.body.text}</Typography>
+            {comment.body.text && comment.body.text}
 
             {comment.body.image && (
               <Paper elevation={0} style={{ padding: '8px' }}>

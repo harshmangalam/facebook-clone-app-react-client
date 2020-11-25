@@ -1,36 +1,41 @@
 import React from 'react'
 import { Paper, Grid, Typography, Button, Avatar } from '@material-ui/core'
+import AvartarText from '../UI/AvartarText'
 
-function Friends() {
+function Friends({ user }) {
   return (
-    <Paper style={{ padding: '8px' }}>
-      <Grid container alignItems="center" justify="space-between">
-        <Grid item>
-          <Typography>Friends</Typography>
-          <Typography>40</Typography>
-        </Grid>
-        <Grid item>
-          <Button variant="outlined" color="secondary" size="small">
-            See all
-          </Button>
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={1}>
-        {[...new Array(4)].map((friend) => (
-          <Grid item md={6} sm={6} xs={6}>
-            <Avatar variant="square" style={{ width: '100%', height: '80%'}}>
-              <img
-                src={require('../../assets/ankit.jpg')}
-                width="100%"
-                height="100%"
-              />
-            </Avatar>
-            <Typography variant="body2" style={{marginBottom:'32px'}} >Ankit Kumar</Typography>
+    <Grid container spacing={2}>
+      {user.friends.length &&
+        user.friends.map((friend) => (
+          <Grid item xs={6} sm={6} md={6}>
+            <Paper
+              style={{ padding: '16px', display: 'flex', alignItems: 'center' }}
+            >
+              {friend.profile_pic ? (
+                <Avatar src={friend.profile_pic} variant="square" />
+              ) : (
+                <AvartarText
+                  bg={friend.active ? 'seagreen' : 'tomato'}
+                  text={friend.name}
+                />
+              )}
+              <Typography
+                style={{ marginLeft: '16px',flexGrow:1 }}
+                variant="h6"
+                color="inherit"
+              >
+                {friend.name}
+              </Typography>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: 'tomato', color: '#fff' }}
+              >
+                Unfriend
+              </Button>
+            </Paper>
           </Grid>
         ))}
-      </Grid>
-    </Paper>
+    </Grid>
   )
 }
 

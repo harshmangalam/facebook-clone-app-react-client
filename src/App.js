@@ -160,13 +160,16 @@ function App() {
       })
 
       socketio.on('friend-request-accept-status', ({ user, request_id }) => {
-        console.log(request_id)
         userDispatch({
           type: 'ADD_FRIEND',
           payload: user,
         })
         userDispatch({
           type: 'REMOVE_FRIENDS_REQUEST_RECEIVED',
+          payload: request_id,
+        })
+        userDispatch({
+          type: 'REMOVE_FRIENDS_REQUEST_SENDED',
           payload: request_id,
         })
       })

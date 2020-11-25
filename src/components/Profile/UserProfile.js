@@ -1,21 +1,10 @@
 import React, { useContext } from 'react'
 import { MoreHoriz, Edit, SearchOutlined } from '@material-ui/icons'
-import {
-  Paper,
-  AppBar,
-  Tabs,
-  Tab,
-  Box,
-  Typography,
-  Grid,
-  Button,
-  IconButton,
-  Avatar,
-  Divider,
-} from '@material-ui/core'
+import { Paper, AppBar, Tabs, Tab, Box, Grid, Divider } from '@material-ui/core'
 
 import ProfileHeader from './ProfileHeader'
 import ProfileTimeline from './ProfileTimeline'
+import Friends from './Friends'
 import { UIContext } from '../../App'
 
 function UserProfile({ user, conScreen }) {
@@ -26,16 +15,22 @@ function UserProfile({ user, conScreen }) {
   }
   return (
     <div style={{ minHeight: '100vh' }}>
-      <Paper style={{ width: '100%',backgroundColor:uiState.darkMode && 'rgb(36,37,38)' }}>
+      <Paper
+        style={{
+          width: '100%',
+          backgroundColor: uiState.darkMode && 'rgb(36,37,38)',
+        }}
+      >
         <ProfileHeader user={user} />
         <Grid container justify="center" alignItems="center">
-          <Grid item xs={12} sm={12} md={8}>
+          <Grid item xs={12} sm={12} md={6}>
             <Divider />
             <AppBar
               position="static"
               style={{
                 background: uiState.darkMode ? 'rgb(36,37,38)' : '#fff',
                 color: uiState.darkMode ? '#fff' : 'black',
+                alignItems: 'center',
               }}
               elevation={0}
             >
@@ -49,44 +44,12 @@ function UserProfile({ user, conScreen }) {
                 <Tab label="Timeline" />
                 <Tab label="About" />
                 <Tab label="Friends" />
-                <Tab label="Photos" />
-
-                <IconButton>
-                  <Avatar
-                    style={{
-                      background: 'rgb(228,230,235)',
-                      color: 'rgb(29,32,35)',
-                    }}
-                  >
-                    <Edit />
-                  </Avatar>
-                </IconButton>
-                <IconButton>
-                  <Avatar
-                    style={{
-                      background: 'rgb(228,230,235)',
-                      color: 'rgb(29,32,35)',
-                    }}
-                  >
-                    <SearchOutlined />
-                  </Avatar>
-                </IconButton>
-                <IconButton>
-                  <Avatar
-                    style={{
-                      background: 'rgb(228,230,235)',
-                      color: 'rgb(29,32,35)',
-                    }}
-                  >
-                    <MoreHoriz />
-                  </Avatar>
-                </IconButton>
               </Tabs>
             </AppBar>
           </Grid>
         </Grid>
       </Paper>
-      <Grid container justify="center" alignItems="center">
+      <Grid container justify="center">
         <Grid item xs={12} sm={12} md={conScreen ? 12 : 6}>
           <TabPanel value={value} index={0}>
             <ProfileTimeline user={user} />
@@ -95,7 +58,7 @@ function UserProfile({ user, conScreen }) {
             about
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Friends
+            <Friends user={user} />
           </TabPanel>
         </Grid>
       </Grid>

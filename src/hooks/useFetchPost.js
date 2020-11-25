@@ -4,24 +4,37 @@ import { PostContext } from '../App'
 
 const url = process.env.REACT_APP_ENDPOINT
 
-const useFetchPost = (post_id) => {
+const useFetchPost = () => {
   const [loading, setLoading] = useState(false)
-  const { postDispatch } = useContext(PostContext)
+  const { postState, postDispatch } = useContext(PostContext)
 
-  const fetchPost = async () => {
+  let token = JSON.parse(localStorage.getItem('token'))
+
+  const fetchComments = async (post_id) => {
+    if (
+      postState.post.commentPagination.currentPage >
+      postState.post.commentPagination.totalPage
+    ) {
+      return
+    }
     setLoading(true)
     try {
-
-      let token = JSON.parse(localStorage.getItem('token'))
-      const commentsResponse = await axios.get(`${url}/api/post/${post_id}/comment`,{
-        headers:{
-          Authorization:`Bearer ${token}`
-        }
-      })
-      if (commentsResponse.data) {
+      const res = await axios.get(
+        `${url}/api/post/${post_id}/comment/?page=${postState.post.commentPagination.currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      if (res.data) {
         postDispatch({
-          type: 'SET_POST_COMMENTS',
-          payload: commentsResponse.data.comments,
+          type: 'COMMENT_PAGINATION',
+          payload: {
+            currentPage: res.data.pagination.currentPage + 1,
+            totalPage: res.data.pagination.totalPage,
+            comments: res.data.comments,
+          },
         })
       }
       setLoading(false)
@@ -31,8 +44,43 @@ const useFetchPost = (post_id) => {
     }
   }
 
+  const fetchPosts = async () => {
+    if (
+      postState.postPagination.currentPage > postState.postPagination.totalPage
+    ) {
+      return
+    } else {
+      setLoading(true)
+      try {
+        const { data } = await axios.get(
+          `${url}/api/post/?page=${postState.postPagination.currentPage}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        )
+        if (data) {
+          postDispatch({
+            type: 'POST_PAGINATION',
+            payload: {
+              currentPage: data.pagination.currentPage + 1,
+              totalPage: data.pagination.totalPage,
+              posts: data.posts,
+            },
+          })
+        }
+        setLoading(false)
+      } catch (err) {
+        setLoading(false)
+        console.log(err)
+      }
+    }
+  }
+
   return {
-    fetchPost,
+    fetchPosts,
+    fetchComments,
     loading,
   }
 }
