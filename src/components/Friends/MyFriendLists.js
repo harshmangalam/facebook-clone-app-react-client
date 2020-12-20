@@ -1,7 +1,6 @@
 import {
   Avatar,
   Grid,
-  IconButton,
   List,
   ListItem,
   ListItemAvatar,
@@ -9,7 +8,6 @@ import {
   ListSubheader,
   Typography,
 } from '@material-ui/core'
-import { MoreHoriz, Search, VideoCall } from '@material-ui/icons'
 import React, { useContext } from 'react'
 import { UIContext, UserContext } from '../../App'
 import AvartarText from '../UI/AvartarText'

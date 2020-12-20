@@ -13,8 +13,8 @@ import {
   useTheme,
   Tooltip,
 } from '@material-ui/core'
-import { Search as SearchIcon, Menu as MenuIcon } from '@material-ui/icons'
-import Search from '../Search'
+import {Menu as MenuIcon } from '@material-ui/icons'
+import SearchFriends from '../Friends/SearchFriends'
 function Navbar() {
   const { uiState, uiDispatch } = useContext(UIContext)
   const classes = useStyles()
@@ -45,22 +45,11 @@ function Navbar() {
                 marginRight: '8px',
               }}
             />
-            {uiState.mdScreen && !match ? (
-              <Search placeholder="Search Facebook" />
-            ) : (
-              <IconButton
-                style={{
-                  background: !uiState.darkMode && 'rgb(240,242,245)',
-                }}
-              >
-                <SearchIcon
-                  style={{
-                    width: xsScreen && '20px',
-                    height: xsScreen && '20px',
-                  }}
-                />
-              </IconButton>
-            )}
+            
+             <SearchFriends />
+
+            
+            
             {!uiState.mdScreen && uiState.navDrawerMenu && (
               <Tooltip
                 title={

@@ -52,6 +52,7 @@ function CommentTextArea({ post }) {
                 <img
                   src={userState.currentUser.profile_pic}
                   style={{ width: '100%', height: '100%' }}
+                  alt={userState.currentUser.name}
                 />
               </Avatar>
             ) : (

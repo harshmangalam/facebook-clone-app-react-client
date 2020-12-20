@@ -10,12 +10,14 @@ import {
 } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import AvartarText from '../UI/AvartarText'
 import useUpdateProfilePic from '../../hooks/useUpdateProfilePic'
 import { CameraAlt as CameraIcon } from '@material-ui/icons'
 import DialogLoading from '../UI/DialogLoading'
+import { UserContext } from '../../App'
 function UpdateProfileImage({ user }) {
+  const {userState} = useContext(UserContext)
   const history = useHistory()
   const [profilePic, setProfilePic] = useState(null)
   const [previewImage, setPreviewImage] = useState(null)
@@ -57,14 +59,16 @@ function UpdateProfileImage({ user }) {
     <div>
       <Badge
         badgeContent={
-          <IconButton
-            style={{ bottom: -140, left: -20 }}
-            onClick={handleImageClick}
-          >
-            <Avatar>
-              <CameraIcon style={{ color: 'black' }} />
-            </Avatar>
-          </IconButton>
+          userState.currentUser.id == user.id && (
+            <IconButton
+              style={{ bottom: -140, left: -20 }}
+              onClick={handleImageClick}
+            >
+              <Avatar>
+                <CameraIcon style={{ color: 'black' }} />
+              </Avatar>
+            </IconButton>
+          )
         }
         style={{
           position: 'absolute',
@@ -82,7 +86,7 @@ function UpdateProfileImage({ user }) {
               height: '170px',
             }}
           >
-            <img src={user.profile_pic} width="100%" height="100%" />
+            <img src={user.profile_pic} width="100%" height="100%" alt={user.name} />
           </Avatar>
         ) : (
           <AvartarText
@@ -113,7 +117,7 @@ function UpdateProfileImage({ user }) {
         <DialogTitle>Profile Picture</DialogTitle>
         <DialogContent>
           {previewImage && (
-            <img src={previewImage} width="100%" height="400px" />
+            <img src={previewImage} width="100%" height="400px" alt="" />
           )}
         </DialogContent>
         <DialogActions>

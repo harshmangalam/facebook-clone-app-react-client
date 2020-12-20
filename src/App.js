@@ -9,8 +9,6 @@ import React, {
 
 import { ThemeProvider } from '@material-ui/core/styles'
 
-// import { Theme } from './Theme.js'
-
 import {
   Snackbar,
   useMediaQuery,

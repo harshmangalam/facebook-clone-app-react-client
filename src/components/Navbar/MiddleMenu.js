@@ -4,16 +4,7 @@ import { Button } from '@material-ui/core'
 
 import useStyles from './styles'
 
-import {
-  Home,
-  HomeOutlined,
-  Person,
-  PersonOutlined,
-  PlayCircleOutline,
-  PlayCircleFilled,
-  PeopleAltOutlined,
-  People,
-} from '@material-ui/icons'
+import { Home, HomeOutlined, Person, PersonOutlined } from '@material-ui/icons'
 
 function MiddleMenu() {
   const classes = useStyles()

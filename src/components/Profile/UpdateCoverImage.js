@@ -86,7 +86,7 @@ function UpdateCoverImage() {
         <DialogTitle>Cover Picture</DialogTitle>
         <DialogContent>
           {previewImage && (
-            <img src={previewImage} width="100%" height="400px" />
+            <img src={previewImage} width="100%" height="400px" alt="preview" />
           )}
         </DialogContent>
         <DialogActions>

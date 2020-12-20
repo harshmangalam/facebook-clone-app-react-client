@@ -103,7 +103,7 @@ export default function PostFormDialog() {
           <Alert>
             <b>Image Size ({Math.round(blob.size / 1024)} Kb)</b>
           </Alert>
-          <img src={blobURL} style={{ width: '100%', height: '100%' }} />
+          <img src={blobURL} style={{ width: '100%', height: '100%' }} alt="" />
           <div
             style={{
               display: 'flex',

@@ -4,7 +4,6 @@ import moment from 'moment'
 import {
   Menu,
   IconButton,
-  Paper,
   List,
   ListItem,
   ListItemIcon,

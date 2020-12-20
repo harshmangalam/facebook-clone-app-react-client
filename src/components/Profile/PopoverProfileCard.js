@@ -1,30 +1,19 @@
 import {
   Avatar,
-  Button,
   Card,
   CardActions,
-  CardContent,
   CardHeader,
-  CardMedia,
   Chip,
   Grid,
-  Paper,
   Typography,
 } from '@material-ui/core'
-import React, { useContext } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import StyledBadge from '../UI/StyledBadge'
 import AvartarText from '../UI/AvartarText'
-import { Chat, ChatOutlined } from '@material-ui/icons'
+
 import {
-  faAddressCard,
-  faChartArea,
-  faChartBar,
-  faHeart,
-  faMapMarker,
   faMapMarkerAlt,
-  faSchool,
-  faUserFriends,
   faUserGraduate,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'

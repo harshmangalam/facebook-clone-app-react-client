@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react'
 import {
   Avatar,
   Container,
-  Divider,
   Grid,
   Paper,
   Typography,

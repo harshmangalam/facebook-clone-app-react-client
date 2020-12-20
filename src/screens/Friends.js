@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core'
 import Sidebar from '../components/Sidebar'
 import UserLists from '../components/Friends/UserLists'
-import { Link, useHistory } from 'react-router-dom'
 import { UIContext, UserContext } from '../App'
 import DrawerBar from '../components/Navbar/DrawerBar'
 import UserProfile from '../components/Profile/UserProfile'

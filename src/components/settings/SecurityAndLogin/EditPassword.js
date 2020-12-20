@@ -1,20 +1,16 @@
 import {
   Button,
   Dialog,
-  Grid,
   DialogTitle,
   DialogContent,
   DialogActions,
-  Input,
   InputAdornment,
   IconButton,
-  CircularProgress,
-  Typography,
   OutlinedInput,
 } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
+
 import { Visibility, VisibilityOff } from '@material-ui/icons'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 function EditPassword({ password, setPassword, updatePassword }) {
   const [dialog, setDialog] = useState(false)

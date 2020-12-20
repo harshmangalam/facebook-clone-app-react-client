@@ -1,26 +1,15 @@
-import React, { Fragment, useContext, useState } from 'react'
-import { Button, Paper, Menu, makeStyles } from '@material-ui/core'
+import React, { Fragment, useContext } from 'react'
+import { Button } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsDown, faThumbsUp } from '@fortawesome/free-regular-svg-icons'
+import {  faThumbsUp } from '@fortawesome/free-regular-svg-icons'
 import {faThumbsUp as filledLike} from "@fortawesome/free-solid-svg-icons";
 
 import { PostContext, UIContext, UserContext } from '../../App'
 import { likeDislikePost } from '../../services/PostServices'
 
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    width: '50px',
-    height: '50px',
-    transition: '0.7s',
-    '&:hover': {
-      transform: 'scale(1.4)',
-      cursor: 'pointer',
-    },
-  },
-}))
 
 function LikePost({ post }) {
-  const classes = useStyles()
+
   const { postDispatch } = useContext(PostContext)
   const { uiDispatch } = useContext(UIContext)
   const { userState } = useContext(UserContext)

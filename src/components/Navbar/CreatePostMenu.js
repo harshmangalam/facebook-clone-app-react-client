@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom'
 import {
   Menu,
   IconButton,
-  Paper,
   List,
   ListItem,
   ListItemIcon,
@@ -18,8 +17,6 @@ import {
 import {
   Add as AddIcon,
   PostAdd as PostIcon,
-  Book as BookIcon,
-  Event as EventIcon,
 } from '@material-ui/icons'
 
 function CreatePostMenu() {

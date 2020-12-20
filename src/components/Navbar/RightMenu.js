@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import { UIContext, UserContext } from '../../App'
 
 import {
-  Button,
   Chip,
   Avatar,
   IconButton,

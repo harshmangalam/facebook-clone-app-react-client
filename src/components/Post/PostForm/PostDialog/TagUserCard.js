@@ -7,7 +7,7 @@ import {
   Checkbox,
   Container,
   DialogContent,
-  FormControlLabel,
+
   Grid,
   IconButton,
   List,
@@ -15,13 +15,13 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
-  TextField,
+  
   Tooltip,
   Dialog,
   Typography,
 } from '@material-ui/core'
 import { UserContext } from '../../../../App'
-import { ArrowBack, CheckBox } from '@material-ui/icons'
+import { ArrowBack } from '@material-ui/icons'
 
 
 function TagUserCard({ body, setBody }) {

@@ -5,7 +5,6 @@ import { Link, useHistory } from 'react-router-dom'
 import {
   Menu,
   IconButton,
-  Paper,
   List,
   ListItem,
   ListItemIcon,
@@ -80,105 +79,104 @@ function ProfileMenu() {
         style={{ marginTop: '50px' }}
         elevation={7}
       >
-       
-          <List>
-            <ListItem
-              button
-              component={Link}
-              to={`/profile/${userState.currentUser.id}`}
-            >
-              <ListItemIcon>
-                {userState.currentUser.profile_pic ? (
-                  <Avatar
-                    style={{
-                      width: '60px',
-                      height: '60px',
-                    }}
-                  >
-                    <img
-                      src={userState.currentUser.profile_pic}
-                      width="100%"
-                      height="100%"
-                    />
-                  </Avatar>
-                ) : (
-                  <AvartarText
-                    text={userState.currentUser.name}
-                    bg={userState.currentUser.active ? 'seagreen' : 'tomato'}
+        <List>
+          <ListItem
+            button
+            component={Link}
+            to={`/profile/${userState.currentUser.id}`}
+          >
+            <ListItemIcon>
+              {userState.currentUser.profile_pic ? (
+                <Avatar
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                  }}
+                >
+                  <img
+                    src={userState.currentUser.profile_pic}
+                    width="100%"
+                    alt={userState.currentUser.name}
+                    height="100%"
                   />
-                )}
-              </ListItemIcon>
-              <ListItemText style={{ marginLeft: '8px' }}>
-                <Typography style={{ fontSize: '17px', fontWeight: '700' }}>
-                  {userState.currentUser.name}
-                </Typography>
-                <Typography>See Your Profile</Typography>
-              </ListItemText>
-            </ListItem>
-
-            <ListItem button component={Link} to={`/settings`}>
-              <ListItemIcon>
-                <Avatar
-                  style={{
-                    background: 'teal',
-                    color: '#fff',
-                  }}
-                >
-                  <SettingsIcon />
                 </Avatar>
-              </ListItemIcon>
-              <ListItemText>
-                <Typography style={{ fontSize: '15px' }}> Settings</Typography>
-              </ListItemText>
-            </ListItem>
-
-            <ListItem>
-              <ListItemIcon>
-                <Avatar
-                  style={{
-                    background: 'teal',
-                    color: '#fff',
-                  }}
-                >
-                  {uiState.darkMode ? (
-                    <FontAwesomeIcon icon={faSun} />
-                  ) : (
-                    <FontAwesomeIcon icon={faMoon} />
-                  )}
-                </Avatar>
-              </ListItemIcon>
-              <ListItemText>
-                <Switch
-                  checked={uiState.darkMode}
-                  onChange={(e) =>
-                    uiDispatch({
-                      type: 'SET_DARK_MODE',
-                      payload: e.target.checked,
-                    })
-                  }
-                  name="checkedB"
-                  color="primary"
+              ) : (
+                <AvartarText
+                  text={userState.currentUser.name}
+                  bg={userState.currentUser.active ? 'seagreen' : 'tomato'}
                 />
-              </ListItemText>
-            </ListItem>
+              )}
+            </ListItemIcon>
+            <ListItemText style={{ marginLeft: '8px' }}>
+              <Typography style={{ fontSize: '17px', fontWeight: '700' }}>
+                {userState.currentUser.name}
+              </Typography>
+              <Typography>See Your Profile</Typography>
+            </ListItemText>
+          </ListItem>
 
-            <ListItem button onClick={handleUserLogout}>
-              <ListItemIcon>
-                <Avatar
-                  style={{
-                    background: 'teal',
-                    color: '#fff',
-                  }}
-                >
-                  <LogoutIcon />
-                </Avatar>
-              </ListItemIcon>
-              <ListItemText>
-                <Typography style={{ fontSize: '15px' }}> Logout</Typography>
-              </ListItemText>
-            </ListItem>
-          </List>
-       
+          <ListItem button component={Link} to={`/settings`}>
+            <ListItemIcon>
+              <Avatar
+                style={{
+                  background: 'teal',
+                  color: '#fff',
+                }}
+              >
+                <SettingsIcon />
+              </Avatar>
+            </ListItemIcon>
+            <ListItemText>
+              <Typography style={{ fontSize: '15px' }}> Settings</Typography>
+            </ListItemText>
+          </ListItem>
+
+          <ListItem>
+            <ListItemIcon>
+              <Avatar
+                style={{
+                  background: 'teal',
+                  color: '#fff',
+                }}
+              >
+                {uiState.darkMode ? (
+                  <FontAwesomeIcon icon={faSun} />
+                ) : (
+                  <FontAwesomeIcon icon={faMoon} />
+                )}
+              </Avatar>
+            </ListItemIcon>
+            <ListItemText>
+              <Switch
+                checked={uiState.darkMode}
+                onChange={(e) =>
+                  uiDispatch({
+                    type: 'SET_DARK_MODE',
+                    payload: e.target.checked,
+                  })
+                }
+                name="checkedB"
+                color="primary"
+              />
+            </ListItemText>
+          </ListItem>
+
+          <ListItem button onClick={handleUserLogout}>
+            <ListItemIcon>
+              <Avatar
+                style={{
+                  background: 'teal',
+                  color: '#fff',
+                }}
+              >
+                <LogoutIcon />
+              </Avatar>
+            </ListItemIcon>
+            <ListItemText>
+              <Typography style={{ fontSize: '15px' }}> Logout</Typography>
+            </ListItemText>
+          </ListItem>
+        </List>
       </Menu>
     </div>
   )

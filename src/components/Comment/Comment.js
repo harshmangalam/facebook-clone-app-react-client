@@ -9,7 +9,7 @@ import {
   ListItemText,
   ListItemAvatar,
 } from '@material-ui/core'
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext } from 'react'
 import AvartarText from '../UI/AvartarText'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp as filledLike } from '@fortawesome/free-solid-svg-icons'

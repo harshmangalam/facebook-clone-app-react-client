@@ -1,15 +1,13 @@
-import { Button, Grid, Paper, Typography } from '@material-ui/core'
+import { Grid} from '@material-ui/core'
 import React, { useContext } from 'react'
-import Photos from './Photos'
 import WritePostCard from '../Post/PostForm/WritePostCard'
 import { UserContext, PostContext, UIContext } from '../../App'
 import Posts from '../Post/Posts'
-import { Link } from 'react-router-dom'
+
 
 function ProfileTimeline({ user }) {
   const { userState } = useContext(UserContext)
   const { postState } = useContext(PostContext)
-  const { uiState } = useContext(UIContext)
 
   const getUserPost = () => {
     return postState.posts.filter((post) => post.user.id == user.id)

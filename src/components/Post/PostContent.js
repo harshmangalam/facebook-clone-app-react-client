@@ -75,6 +75,7 @@ function PostContent({ post }) {
               src={post.profilePostData.profileImage}
               width="100%"
               height="100%"
+              alt={post.profilePostData.profileImage}
             />
           </Avatar>
         </>

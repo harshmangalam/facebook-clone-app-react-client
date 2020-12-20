@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
-import { Button, Divider, Grid, Typography } from '@material-ui/core'
-import { UserContext, UIContext } from '../../App'
+import {Divider, Grid, Typography } from '@material-ui/core'
+import { UserContext } from '../../App'
 import EditInput from './General/EditInput'
 import useUpdateProfile from '../../hooks/useUpdateProfile'
 function General() {

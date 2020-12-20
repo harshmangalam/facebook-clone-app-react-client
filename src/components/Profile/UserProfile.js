@@ -42,7 +42,7 @@ function UserProfile({ user, conScreen }) {
                 indicatorColor="primary"
               >
                 <Tab label="Timeline" />
-                <Tab label="About" />
+
                 <Tab label="Friends" />
               </Tabs>
             </AppBar>
@@ -54,10 +54,8 @@ function UserProfile({ user, conScreen }) {
           <TabPanel value={value} index={0}>
             <ProfileTimeline user={user} />
           </TabPanel>
+
           <TabPanel value={value} index={1}>
-            about
-          </TabPanel>
-          <TabPanel value={value} index={2}>
             <Friends user={user} />
           </TabPanel>
         </Grid>

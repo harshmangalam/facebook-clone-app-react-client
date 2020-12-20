@@ -16,7 +16,7 @@ import WritePostCard from '../components/Post/PostForm/WritePostCard'
 import { homeLeftItems } from '../Data/Home'
 
 import DrawerBar from '../components/Navbar/DrawerBar'
-import { fetchAllPosts } from '../services/PostServices'
+
 import AvartarText from '../components/UI/AvartarText'
 
 import Posts from '../components/Post/Posts'
@@ -25,8 +25,8 @@ import useFetchPost from '../hooks/useFetchPost'
 
 function Home() {
   const { uiState, uiDispatch } = useContext(UIContext)
-  const { userState, userDispatch } = useContext(UserContext)
-  const { postDispatch, postState } = useContext(PostContext)
+  const { userState } = useContext(UserContext)
+  const {  postState } = useContext(PostContext)
   const theme = useTheme()
   const match = useMediaQuery(theme.breakpoints.between(960, 1400))
 

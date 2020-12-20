@@ -5,11 +5,16 @@ import AvartarText from '../UI/AvartarText'
 function Friends({ user }) {
   return (
     <Grid container spacing={2}>
-      {user.friends.length &&
+      {user.friends &&
         user.friends.map((friend) => (
-          <Grid item xs={6} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={6}>
             <Paper
-              style={{ padding: '16px', display: 'flex', alignItems: 'center' }}
+              style={{
+                padding: '16px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
             >
               {friend.profile_pic ? (
                 <Avatar src={friend.profile_pic} variant="square" />
@@ -17,18 +22,30 @@ function Friends({ user }) {
                 <AvartarText
                   bg={friend.active ? 'seagreen' : 'tomato'}
                   text={friend.name}
+                  size={70}
                 />
               )}
               <Typography
-                style={{ marginLeft: '16px',flexGrow:1 }}
-                variant="h6"
+                style={{ marginTop: '16px', flexGrow: 1 }}
+                variant="h5"
                 color="inherit"
               >
                 {friend.name}
               </Typography>
+              <Typography
+                style={{ marginTop: '6px', flexGrow: 1 }}
+                variant="h6"
+                color="inherit"
+              >
+                {friend.email}
+              </Typography>
               <Button
                 variant="contained"
-                style={{ backgroundColor: 'tomato', color: '#fff' }}
+                style={{
+                  backgroundColor: 'tomato',
+                  color: '#fff',
+                  marginTop: '16px',
+                }}
               >
                 Unfriend
               </Button>

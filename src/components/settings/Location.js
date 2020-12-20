@@ -105,16 +105,18 @@ function Location() {
           </List>
         )}
 
-        <Grid container style={{ marginTop: '20px' }}>
-          <Grid item xs={12} sm={12} md={12}>
-            <GoogleMap
-              coords={{
-                lng: parseFloat(userState.currentUser.location.lng),
-                lat: parseFloat(userState.currentUser.location.lat),
-              }}
-            />
+        {userState.currentUser.location && (
+          <Grid container style={{ marginTop: '20px' }}>
+            <Grid item xs={12} sm={12} md={12}>
+              <GoogleMap
+                coords={{
+                  lng: parseFloat(userState.currentUser.location.lng),
+                  lat: parseFloat(userState.currentUser.location.lat),
+                }}
+              />
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </div>
     </div>
   )

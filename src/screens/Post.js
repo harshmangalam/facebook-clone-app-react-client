@@ -18,12 +18,12 @@ import { useParams } from 'react-router-dom'
 import { PostContext, UIContext } from '../App'
 import useFetchPost from '../hooks/useFetchPost'
 import Comment from '../components/Comment/Comment'
-import DialogLoading from '../components/UI/DialogLoading'
+
 import AvartarText from '../components/UI/AvartarText'
 import CommentTextArea from '../components/Comment/CommentTextArea'
-import PostContent from '../components/Post/PostContent'
+
 import PostSubContent from '../components/Post/PostSubContent'
-import LikePost from '../components/Post/LikePost'
+
 function Post() {
   const { postState, postDispatch } = useContext(PostContext)
   const { uiState } = useContext(UIContext)
@@ -32,7 +32,7 @@ function Post() {
   const theme = useTheme()
   const xsScreen = useMediaQuery(theme.breakpoints.only('xs'))
 
-  const { loading, fetchComments } = useFetchPost()
+  const { fetchComments } = useFetchPost()
 
   useEffect(() => {
     const post = postState.posts.find((post) => post.id == params.postId)
@@ -83,6 +83,7 @@ function Post() {
                         <img
                           src={postState.post.user.profile_pic}
                           style={{ width: '100%', height: '100%' }}
+                          alt=""
                         />
                       </Avatar>
                     ) : (
@@ -164,6 +165,7 @@ function Post() {
                       src={postState.post.profilePostData.profileImage}
                       width="100%"
                       height="100%"
+                      alt=""
                     />
                   </Avatar>
                 </>

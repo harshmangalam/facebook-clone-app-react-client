@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { UIContext } from '../../App'
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import Toolbar from '@material-ui/core/Toolbar'
 
 const drawerWidth = "100vw"

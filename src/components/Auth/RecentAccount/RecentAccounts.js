@@ -8,7 +8,7 @@ import AccountCard from './AccountCard'
 import AddAccount from './AddAccount'
 
 function RecentAccounts() {
-  const { userState, userDispatch } = useContext(UserContext)
+  const { userState } = useContext(UserContext)
 
   return (
     <>

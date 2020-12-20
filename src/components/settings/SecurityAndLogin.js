@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
   Grid,
-  IconButton,
   List,
   ListItem,
   ListItemSecondaryAction,
@@ -9,11 +8,10 @@ import {
   Typography,
   Divider,
   ListItemIcon,
-  Button,
 } from '@material-ui/core'
 
 import useUpdateProfile from '../../hooks/useUpdateProfile'
-import { Computer, ExitToApp, Lock } from '@material-ui/icons'
+import { Lock } from '@material-ui/icons'
 import EditPassword from './SecurityAndLogin/EditPassword'
 function SecurityAndLogin() {
   const [password, setPassword] = useState({
@@ -23,7 +21,7 @@ function SecurityAndLogin() {
     showCurrentPassword: false,
   })
 
-  const { updatePassword, loading } = useUpdateProfile()
+  const { updatePassword } = useUpdateProfile()
 
   const handleUpdatePassword = () => {
     updatePassword({
@@ -73,27 +71,5 @@ function SecurityAndLogin() {
   )
 }
 
-const loginInfo = [
-  {
-    device: 'Linux',
-    location: 'Patna,Bihar',
-    browser: 'Chrome',
-    activeState: true,
-  },
-  {
-    device: 'Linux',
-    location: 'Patna,Bihar',
-    browser: 'Chrome',
-    activeState: false,
-    lastLogin: '22 Dec, 2020',
-  },
-  {
-    device: 'Linux',
-    location: 'Patna,Bihar',
-    browser: 'Chrome',
-    activeState: false,
-    lastLogin: '24 Dec, 2020',
-  },
-]
 
 export default SecurityAndLogin
