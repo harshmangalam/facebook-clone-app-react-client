@@ -1,7 +1,7 @@
 import { Grid} from '@material-ui/core'
 import React, { useContext } from 'react'
 import WritePostCard from '../Post/PostForm/WritePostCard'
-import { UserContext, PostContext, UIContext } from '../../App'
+import { UserContext, PostContext } from '../../App'
 import Posts from '../Post/Posts'
 
 

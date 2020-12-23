@@ -1,9 +1,7 @@
 import {
   Avatar,
   CardHeader,
-  Chip,
   DialogContent,
-  Divider,
   IconButton,
   Paper,
   Typography,

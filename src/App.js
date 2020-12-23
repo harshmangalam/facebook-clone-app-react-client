@@ -5,6 +5,7 @@ import React, {
   createContext,
   useReducer,
   useEffect,
+  useState,
 } from 'react'
 
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -26,7 +27,6 @@ import {
 import Navbar from './components/Navbar/Navbar'
 import Loader from './components/Loader'
 import BottomNav from './components/Navbar/BottomNav.js'
-
 import { initialUIState, UIReducer } from './context/UIContext'
 import { UserReducer, initialUserState } from './context/UserContext'
 import { PostReducer, initialPostState } from './context/PostContext'
@@ -53,9 +53,6 @@ const Profile = lazy(() => import('./screens/Profile'))
 const Post = lazy(() => import('./screens/Post'))
 const Messenger = lazy(() => import('./screens/Messenger'))
 const Settings = lazy(() => import('./screens/Settings'))
-const SendedFriendRequests = lazy(() =>
-  import('./screens/SendedFriendRequests'),
-)
 
 const token = localStorage.token && JSON.parse(localStorage.token)
 
@@ -64,6 +61,8 @@ function App() {
   const [userState, userDispatch] = useReducer(UserReducer, initialUserState)
   const [postState, postDispatch] = useReducer(PostReducer, initialPostState)
   const [chatState, chatDispatch] = useReducer(ChatReducer, initialChatState)
+
+  const [loading, setLoading] = useState(false)
 
   const theme = useTheme()
   const mdScreen = useMediaQuery(theme.breakpoints.up('md'))
@@ -100,7 +99,7 @@ function App() {
         if (decodeToken.exp * 1000 < Date.now()) {
           userDispatch({ type: 'LOGOUT_USER' })
         } else {
-          const currentUser = await fetchCurrentUser()
+          const currentUser = await fetchCurrentUser(setLoading)
           if (currentUser && currentUser.data) {
             userDispatch({
               type: 'SET_CURRENT_USER',
@@ -238,61 +237,60 @@ function App() {
                     }}
                   >
                     <Suspense fallback={<Loader />}>
-                      <Switch>
-                        <Route
-                          exact
-                          path="/"
-                          render={(props) =>
-                            !userState.isLoggedIn ? (
-                              <Auth />
-                            ) : (
-                              <Redirect to="/home" />
-                            )
-                          }
-                        />
-                        <ProtectedRoute
-                          exact
-                          path="/friends"
-                          component={Friends}
-                          isLoggedIn={userState.isLoggedIn}
-                        />
-                        <ProtectedRoute
-                          exact
-                          path="/messenger"
-                          component={Messenger}
-                          isLoggedIn={userState.isLoggedIn}
-                        />
-                        <ProtectedRoute
-                          exact
-                          path="/profile/:userId"
-                          component={Profile}
-                          isLoggedIn={userState.isLoggedIn}
-                        />
-                        <ProtectedRoute
-                          exact
-                          path="/home"
-                          component={Home}
-                          isLoggedIn={userState.isLoggedIn}
-                        />
-                        <ProtectedRoute
-                          exact
-                          path="/post/:postId"
-                          component={Post}
-                          isLoggedIn={userState.isLoggedIn}
-                        />
-                        <ProtectedRoute
-                          exact
-                          path="/friends/sended_friend_request"
-                          component={SendedFriendRequests}
-                          isLoggedIn={userState.isLoggedIn}
-                        />
-                        <ProtectedRoute
-                          exact
-                          path="/settings"
-                          component={Settings}
-                          isLoggedIn={userState.isLoggedIn}
-                        />
-                      </Switch>
+                      {loading ? (
+                        <Loader />
+                      ) : (
+                        <Switch>
+                          <Route
+                            exact
+                            path="/"
+                            render={(props) =>
+                              !userState.isLoggedIn ? (
+                                <Auth />
+                              ) : (
+                                <Redirect to="/home" />
+                              )
+                            }
+                          />
+                          <ProtectedRoute
+                            exact
+                            path="/friends"
+                            component={Friends}
+                            isLoggedIn={userState.isLoggedIn}
+                          />
+                          <ProtectedRoute
+                            exact
+                            path="/messenger"
+                            component={Messenger}
+                            isLoggedIn={userState.isLoggedIn}
+                          />
+                          <ProtectedRoute
+                            exact
+                            path="/profile/:userId"
+                            component={Profile}
+                            isLoggedIn={userState.isLoggedIn}
+                          />
+                          <ProtectedRoute
+                            exact
+                            path="/home"
+                            component={Home}
+                            isLoggedIn={userState.isLoggedIn}
+                          />
+                          <ProtectedRoute
+                            exact
+                            path="/post/:postId"
+                            component={Post}
+                            isLoggedIn={userState.isLoggedIn}
+                          />
+
+                          <ProtectedRoute
+                            exact
+                            path="/settings"
+                            component={Settings}
+                            isLoggedIn={userState.isLoggedIn}
+                          />
+                        </Switch>
+                      )}
                     </Suspense>
                   </div>
 

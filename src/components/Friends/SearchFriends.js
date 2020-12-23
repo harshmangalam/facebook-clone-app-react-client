@@ -82,6 +82,7 @@ function SearchFriends() {
                     onClick={handleClose}
                     component={Link}
                     to={`/profile/${user.id}`}
+                    key={user.id}
                   >
                     <ListItemIcon>
                       {user.profile_pic ? (

@@ -7,7 +7,7 @@ function Friends({ user }) {
     <Grid container spacing={2}>
       {user.friends &&
         user.friends.map((friend) => (
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={6} key={friend.id}>
             <Paper
               style={{
                 padding: '16px',

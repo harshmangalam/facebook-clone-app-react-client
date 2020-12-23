@@ -45,6 +45,7 @@ function Comment({ comment }) {
             <img
               src={comment.user.profile_pic}
               style={{ width: '100%', height: '100%' }}
+              alt={comment.user.name}
             />
           </Avatar>
         ) : (
@@ -73,6 +74,7 @@ function Comment({ comment }) {
                   <img
                     src={comment.body.image}
                     style={{ width: '100%', height: '100%' }}
+                    alt=""
                   />
                 </Avatar>
               </Paper>

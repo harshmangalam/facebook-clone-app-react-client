@@ -2,14 +2,13 @@ import firebase from 'firebase/app'
 import 'firebase/storage'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAdev0tDmFC7cxyL6oDoQz-IufCKtBeZVU',
-  authDomain: 'trigo-8218.firebaseapp.com',
-  databaseURL: 'https://trigo-8218.firebaseio.com',
-  projectId: 'trigo-8218',
-  storageBucket: 'trigo-8218.appspot.com',
-  messagingSenderId: '821841165337',
-  appId: '1:821841165337:web:9b292eacf5ed0edd723e88',
-  measurementId: 'G-5RQ4LKR8NM',
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGEING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 }
 
 firebase.initializeApp(firebaseConfig)
