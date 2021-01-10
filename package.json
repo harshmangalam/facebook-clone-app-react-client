@@ -1,5 +1,4 @@
 {
-  "homepage": "http://harshmangalam.github.io/facebook-clone-app-react-client",
   "name": "facebook-clone-app-react-client",
   "version": "0.1.0",
   "private": true,
@@ -32,9 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,7 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "gh-pages": "^3.1.0"
-  }
+  "devDependencies": {}
 }
