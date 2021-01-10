@@ -1,27 +1,21 @@
 import axios from 'axios'
 const url = process.env.REACT_APP_ENDPOINT
 
-export const fetchCurrentUser = async (setLoading) => {
+export const fetchCurrentUser = async () => {
   let token = localStorage.token && JSON.parse(localStorage.token)
 
   try {
-    setLoading(true)
     const { data } = await axios.get(`${url}/api/user/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
     if (data) {
-      setLoading(false)
-
       return {
         data,
       }
     }
-    setLoading(false)
   } catch (err) {
-    setLoading(false)
-
     if (err && err.response) {
       return {
         error: err.response.data.error,

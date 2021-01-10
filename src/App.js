@@ -99,7 +99,7 @@ function App() {
         if (decodeToken.exp * 1000 < Date.now()) {
           userDispatch({ type: 'LOGOUT_USER' })
         } else {
-          const currentUser = await fetchCurrentUser(setLoading)
+          const currentUser = await fetchCurrentUser()
           if (currentUser && currentUser.data) {
             userDispatch({
               type: 'SET_CURRENT_USER',
