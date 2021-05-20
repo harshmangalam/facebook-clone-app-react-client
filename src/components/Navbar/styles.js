@@ -4,7 +4,7 @@ const drawerWidth = 380
 export default makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    zIndex: 10000,
+    
   },
 
   leftMenu: {

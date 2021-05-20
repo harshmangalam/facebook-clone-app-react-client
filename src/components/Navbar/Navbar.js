@@ -32,6 +32,7 @@ function Navbar() {
         }}
         className={classes.root}
         elevation={1}
+      
       >
         <Toolbar>
           <div className={classes.leftMenu}>
