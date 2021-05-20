@@ -11,3 +11,7 @@ html {
   scroll-behavior: smooth;
 }
 
+
+.MuiAppBar-root{
+  z-index: 0;
+}
