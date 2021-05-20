@@ -12,6 +12,6 @@ html {
 }
 
 
-header {
-  z-index: 10000;
+.MuiAppBar-root{
+  z-index: "10000";
 }

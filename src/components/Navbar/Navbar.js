@@ -31,6 +31,7 @@ function Navbar() {
           color: !uiState.darkMode ? 'blue' : null,
         }}
         className={classes.root}
+        style={{zIndex:"10000"}}
         elevation={1}
       
       >
